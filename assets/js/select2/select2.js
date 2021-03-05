@@ -3588,7 +3588,7 @@ S2.define('select2/data/tags',[
   };
 
   Tags.prototype.createTag = function (decorated, params) {
-    var term = $.trim(params.term);
+    var term = params.term.trim();
 
     if (term === '') {
       return null;
@@ -4816,7 +4816,7 @@ S2.define('select2/defaults',[
 
     function matcher (params, data) {
       // Always return the object if there is nothing to compare
-      if ($.trim(params.term) === '') {
+      if ( params.term.trim() === '' ) {
         return data;
       }
 
