@@ -45,6 +45,18 @@ export type PaymentIncentive = {
 	};
 };
 
+export type RecommendedPaymentMethod = {
+	id: string;
+	_order: number;
+	title: string;
+	description: string;
+	icon: string;
+	enabled: boolean;
+	extraTitle: string;
+	extraDescription: string;
+	extraIcon: string;
+};
+
 export type PaymentProvider = {
 	id: string;
 	_order: number;
@@ -60,6 +72,9 @@ export type PaymentProvider = {
 	management?: ManagementData;
 	state?: StateData;
 	links?: PaymentGatewayLink[];
+	onboarding?: {
+		recommended_payment_methods: RecommendedPaymentMethod[];
+	};
 	_incentive?: PaymentIncentive;
 };
 

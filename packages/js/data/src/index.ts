@@ -39,6 +39,7 @@ export {
 	SuggestedPaymentExtensionCategory,
 	EnableGatewayResponse,
 	PaymentGatewayLink,
+	RecommendedPaymentMethod,
 } from './payment-settings/types';
 export { ShippingMethod } from './shipping-methods/types';
 
