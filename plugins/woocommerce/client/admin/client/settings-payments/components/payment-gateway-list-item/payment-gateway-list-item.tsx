@@ -30,11 +30,13 @@ import { ReactivateLivePaymentsButton } from '~/settings-payments/components/but
 
 type PaymentGatewayItemProps = {
 	gateway: PaymentGatewayProvider;
+	installingPlugin: string | null;
 	acceptIncentive: ( id: string ) => void;
 };
 
 export const PaymentGatewayListItem = ( {
 	gateway,
+	installingPlugin,
 	acceptIncentive,
 	...props
 }: PaymentGatewayItemProps ) => {
@@ -161,6 +163,7 @@ export const PaymentGatewayListItem = ( {
 									gatewayHasRecommendedPaymentMethods={
 										gatewayHasRecommendedPaymentMethods
 									}
+									installingPlugin={ installingPlugin }
 									incentive={ incentive }
 									acceptIncentive={ acceptIncentive }
 								/>
@@ -171,6 +174,7 @@ export const PaymentGatewayListItem = ( {
 								settingsHref={
 									gateway.management._links.settings.href
 								}
+								installingPlugin={ installingPlugin }
 							/>
 						) }
 
@@ -188,6 +192,7 @@ export const PaymentGatewayListItem = ( {
 								gatewayHasRecommendedPaymentMethods={
 									gatewayHasRecommendedPaymentMethods
 								}
+								installingPlugin={ installingPlugin }
 							/>
 						) }
 
@@ -199,6 +204,7 @@ export const PaymentGatewayListItem = ( {
 							gateway.onboarding.state.test_mode && (
 								<ActivatePaymentsButton
 									acceptIncentive={ acceptIncentive }
+									installingPlugin={ installingPlugin }
 									incentive={ incentive }
 								/>
 							) }
