@@ -4,6 +4,17 @@
 	margin-top: em($gap);
 	line-height: 1;
 
+	// Validated checkbox is set to grid because we need to display the validation error below the checkbox, the flex
+	// layout doesn't allow for that without extra markup.
+	&.wc-block-components-validated-checkbox-control label {
+		display: grid;
+		grid-template-columns: auto 1fr;
+
+		.wc-block-components-validation-error {
+			grid-column: 1 / -1;
+		}
+	}
+
 	label {
 		align-items: flex-start;
 		display: inline-flex;
