@@ -34,7 +34,8 @@ if [ "$GITHUB_EVENT_NAME" == "push" ] || [ "$GITHUB_EVENT_NAME" == "pull_request
 	title "Comparing performance between: $BASE_SHA@trunk (base) and $GITHUB_SHA@$HEAD_BRANCH (head) on WordPress v$WP_VERSION"
 
 	title "##[group]Setting up necessary tooling"
-	corepack enable pnpm
+	npm install -g corepack@latest && corepack enable pnpm
+	# `npm install -g corepack@latest` addresses https://github.com/nodejs/corepack/issues/612.
 	pnpm install --filter='compare-perf...' --frozen-lockfile --config.dedupe-peer-dependents=false --ignore-scripts
 	echo '##[endgroup]'
 
