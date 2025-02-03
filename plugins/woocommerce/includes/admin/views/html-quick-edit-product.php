@@ -6,6 +6,7 @@
  */
 
 use Automattic\WooCommerce\Enums\CatalogVisibility;
+use Automattic\WooCommerce\Enums\ProductTaxStatus;
 
 defined( 'ABSPATH' ) || exit;
 ?>
@@ -53,9 +54,9 @@ defined( 'ABSPATH' ) || exit;
 					<select class="tax_status" name="_tax_status">
 						<?php
 						$options = array(
-							'taxable'  => __( 'Taxable', 'woocommerce' ),
-							'shipping' => __( 'Shipping only', 'woocommerce' ),
-							'none'     => _x( 'None', 'Tax status', 'woocommerce' ),
+							ProductTaxStatus::TAXABLE  => __( 'Taxable', 'woocommerce' ),
+							ProductTaxStatus::SHIPPING => __( 'Shipping only', 'woocommerce' ),
+							ProductTaxStatus::NONE     => _x( 'None', 'Tax status', 'woocommerce' ),
 						);
 						foreach ( $options as $key => $value ) {
 							echo '<option value="' . esc_attr( $key ) . '">' . esc_html( $value ) . '</option>';

@@ -7,6 +7,7 @@
 
 use Automattic\WooCommerce\Enums\CatalogVisibility;
 use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\WooCommerce\Enums\ProductTaxStatus;
 use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 /**
@@ -49,7 +50,7 @@ class WC_Tests_Product_Data extends WC_Unit_Test_Case {
 			'regular_price'      => 15.00,
 			'sale_price'         => 10.00,
 			'total_sales'        => 20,
-			'tax_status'         => 'none',
+			'tax_status'         => ProductTaxStatus::NONE,
 			'tax_class'          => '',
 			'manage_stock'       => true,
 			'stock_quantity'     => 10,

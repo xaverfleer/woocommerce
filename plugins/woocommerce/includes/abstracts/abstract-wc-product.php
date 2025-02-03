@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Automattic\WooCommerce\Enums\ProductStatus;
 use Automattic\WooCommerce\Enums\ProductStockStatus;
+use Automattic\WooCommerce\Enums\ProductTaxStatus;
 use Automattic\WooCommerce\Enums\ProductType;
 use Automattic\WooCommerce\Enums\CatalogVisibility;
 use Automattic\WooCommerce\Internal\CostOfGoodsSold\CogsAwareTrait;
@@ -77,7 +78,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		'date_on_sale_from'  => null,
 		'date_on_sale_to'    => null,
 		'total_sales'        => '0',
-		'tax_status'         => 'taxable',
+		'tax_status'         => ProductTaxStatus::TAXABLE,
 		'tax_class'          => '',
 		'manage_stock'       => false,
 		'stock_quantity'     => null,
@@ -944,14 +945,14 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 */
 	public function set_tax_status( $status ) {
 		$options = array(
-			'taxable',
-			'shipping',
-			'none',
+			ProductTaxStatus::TAXABLE,
+			ProductTaxStatus::SHIPPING,
+			ProductTaxStatus::NONE,
 		);
 
 		// Set default if empty.
 		if ( empty( $status ) ) {
-			$status = 'taxable';
+			$status = ProductTaxStatus::TAXABLE;
 		}
 
 		$status = strtolower( $status );
@@ -1745,7 +1746,14 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return bool
 	 */
 	public function is_taxable() {
-		return apply_filters( 'woocommerce_product_is_taxable', $this->get_tax_status() === 'taxable' && wc_tax_enabled(), $this );
+		/**
+		 * Filters whether a product is taxable.
+		 *
+		 * @since 2.7.0
+		 * @param bool          $taxable Whether the product is taxable.
+		 * @param WC_Product    $product Product object.
+		 */
+		return apply_filters( 'woocommerce_product_is_taxable', $this->get_tax_status() === ProductTaxStatus::TAXABLE && wc_tax_enabled(), $this );
 	}
 
 	/**
@@ -1754,7 +1762,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 	 * @return bool
 	 */
 	public function is_shipping_taxable() {
-		return $this->needs_shipping() && ( $this->get_tax_status() === 'taxable' || $this->get_tax_status() === 'shipping' );
+		return $this->needs_shipping() && ( $this->get_tax_status() === ProductTaxStatus::TAXABLE || $this->get_tax_status() === ProductTaxStatus::SHIPPING );
 	}
 
 	/**
@@ -2154,7 +2162,7 @@ class WC_Product extends WC_Abstract_Legacy_Product {
 		$html = '';
 
 		$suffix = get_option( 'woocommerce_price_display_suffix' );
-		if ( $suffix && wc_tax_enabled() && 'taxable' === $this->get_tax_status() ) {
+		if ( $suffix && wc_tax_enabled() && ProductTaxStatus::TAXABLE === $this->get_tax_status() ) {
 			if ( '' === $price ) {
 				$price = $this->get_price();
 			}
