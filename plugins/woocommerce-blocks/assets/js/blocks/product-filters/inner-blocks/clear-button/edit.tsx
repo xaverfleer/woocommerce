@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { InnerBlocks } from '@wordpress/block-editor';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -16,37 +16,33 @@ const Edit = ( props: EditProps ) => {
 		text = __( 'Clear all', 'woocommerce' );
 	}
 
-	return (
-		<InnerBlocks
-			template={ [
-				[
-					'core/buttons',
-					{ layout: { type: 'flex' } },
-					[
-						[
-							'core/button',
-							{
-								text,
-								className:
-									'wc-block-product-filter-clear-button is-style-outline',
-								style: {
-									border: {
-										width: '0px',
-										style: 'none',
-									},
-									typography: {
-										textDecoration: 'underline',
-									},
-									outline: 'none',
-									fontSize: 'medium',
-								},
-							},
-						],
-					],
-				],
-			] }
-		/>
-	);
+	const blockProps = useBlockProps();
+	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		allowedBlocks: [ 'core/button' ],
+		template: [
+			[
+				'core/button',
+				{
+					text,
+					className:
+						'wc-block-product-filter-clear-button is-style-outline',
+					style: {
+						border: {
+							width: '0px',
+							style: 'none',
+						},
+						typography: {
+							textDecoration: 'underline',
+						},
+						outline: 'none',
+						fontSize: 'medium',
+					},
+				},
+			],
+		],
+	} );
+
+	return <div { ...innerBlocksProps } />;
 };
 
 export default Edit;
