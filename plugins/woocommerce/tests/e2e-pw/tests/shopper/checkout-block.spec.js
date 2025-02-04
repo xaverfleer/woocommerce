@@ -47,6 +47,26 @@ let guestOrderId1,
 	productId,
 	shippingZoneId;
 
+const shippingDetails = {
+	firstName: 'Homer',
+	lastName: 'Simpson',
+	address: '123 Evergreen Terrace',
+	zip: '97403',
+	city: 'Springfield',
+	state: 'OR',
+	country: 'US',
+};
+
+const billingDetails = {
+	firstName: 'Mister',
+	lastName: 'Burns',
+	address: '156th Street',
+	zip: '98500',
+	city: 'Springfield',
+	state: 'WA',
+	country: 'US',
+};
+
 const test = baseTest.extend( {
 	storageState: ADMIN_STATE_PATH,
 	testPageTitlePrefix: 'Checkout Block',
@@ -447,12 +467,12 @@ test.describe(
 				);
 
 				// fill shipping address
-				await fillShippingCheckoutBlocks( page );
+				await fillShippingCheckoutBlocks( page, shippingDetails );
 
 				await page.getByLabel( 'Use same address for billing' ).click();
 
 				// fill billing details
-				await fillBillingCheckoutBlocks( page );
+				await fillBillingCheckoutBlocks( page, billingDetails );
 
 				// add note to the order
 				await page.getByLabel( 'Add a note to your order' ).check();
@@ -567,7 +587,7 @@ test.describe(
 				);
 
 				// fill shipping address and check the toggle to use a different address for billing
-				await fillShippingCheckoutBlocks( page );
+				await fillShippingCheckoutBlocks( page, shippingDetails );
 
 				await expect(
 					page.getByLabel( 'Use same address for billing' )
@@ -605,7 +625,7 @@ test.describe(
 				);
 
 				// fill shipping address
-				await fillShippingCheckoutBlocks( page );
+				await fillShippingCheckoutBlocks( page, shippingDetails );
 
 				await page
 					.locator( '.wc-block-components-totals-shipping__via' )
@@ -693,7 +713,7 @@ test.describe(
 			);
 
 			// fill shipping address and check cash on delivery method
-			await fillShippingCheckoutBlocks( page );
+			await fillShippingCheckoutBlocks( page, shippingDetails );
 			await page.getByLabel( 'Cash on delivery' ).check();
 			await expect( page.getByLabel( 'Cash on delivery' ) ).toBeChecked();
 
@@ -920,7 +940,10 @@ test.describe(
 			);
 
 			// fill shipping address and check cash on delivery method
-			await fillShippingCheckoutBlocks( page, { firstName: 'Marge' } );
+			await fillShippingCheckoutBlocks( page, {
+				firstName: 'Marge',
+				...shippingDetails,
+			} );
 			await page.getByLabel( 'Cash on delivery' ).check();
 			await expect( page.getByLabel( 'Cash on delivery' ) ).toBeChecked();
 
@@ -1023,6 +1046,7 @@ test.describe(
 			// fill shipping address and check cash on delivery method
 			await fillShippingCheckoutBlocks( page, {
 				firstName: 'Marge',
+				...shippingDetails,
 			} );
 			await page.getByLabel( 'Cash on delivery' ).check();
 			await expect( page.getByLabel( 'Cash on delivery' ) ).toBeChecked();
