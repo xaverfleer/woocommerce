@@ -523,7 +523,7 @@ test.describe(
 
 			await test.step( 'Go to the extensions tab and connect store', async () => {
 				const connectButton = page.getByRole( 'link', {
-					name: 'Connect your store',
+					name: 'Connect',
 				} );
 				await page.goto(
 					'wp-admin/admin.php?page=wc-admin&tab=my-subscriptions&path=%2Fextensions'
