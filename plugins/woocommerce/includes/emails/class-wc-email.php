@@ -251,9 +251,18 @@ class WC_Email extends WC_Settings_API {
 	public $email_type;
 
 	/**
+	 * Whether email improvements feature is enabled.
+	 *
+	 * @var bool
+	 */
+	public $email_improvements_enabled;
+
+	/**
 	 * Constructor.
 	 */
 	public function __construct() {
+		$this->email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
+
 		// Find/replace.
 		$this->placeholders = array_merge(
 			array(
