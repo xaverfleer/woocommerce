@@ -816,13 +816,7 @@ test.describe(
 
 			// click to log in and make sure you are on the same page after logging in
 			await page.locator( 'text=Log in' ).click();
-			await page
-				.locator( 'input[name="username"]' )
-				.fill( customer.username );
-			await page
-				.locator( 'input[name="password"]' )
-				.fill( customer.password );
-			await page.locator( 'text=Log in' ).click();
+			await logIn( page, customer.username, customer.password, false );
 			await expect(
 				page.getByRole( 'heading', { name: testPage.title } )
 			).toBeVisible();

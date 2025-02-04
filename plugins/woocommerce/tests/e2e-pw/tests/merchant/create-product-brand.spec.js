@@ -130,7 +130,7 @@ test( 'Merchant can add brands', async ( { page } ) => {
 		} );
 
 		// Click on the "Delete" button.
-		await page.getByRole( 'link', { name: 'Delete' } ).click();
+		await page.getByRole( 'link', { name: 'Delete', exact: true } ).click();
 
 		// We should now be in the Brands page.
 		// Confirm that the brand has been deleted and is no longer in the Brands table.
