@@ -12,7 +12,7 @@ if [ "$currentPnpmVersion" != "$targetPnpmVersion" ]; then
 fi
 
 # Refresh dependencies when pulled changes might change the deps.
-changedManifests=$( ( git diff --name-only HEAD ORIG_HEAD  | grep -E '(package.json|pnpm-lock.yaml|pnpm-workspace.yaml|composer.json|composer.lock)$' ) || echo '' )
+changedManifests=$( ( git diff --name-only HEAD ORIG_HEAD  | grep -E '(pnpm-lock.yaml|composer.lock)$' ) || echo '' )
 if [ -n "$changedManifests" ]; then
 	printf "It was a change in the following file(s) - refreshing dependencies:\n"
 	printf "    %s\n" $changedManifests
