@@ -82,14 +82,12 @@ const Edit = ( {
 	return (
 		<>
 			<BlockControls>
-				{ isDescendentOfQueryLoop && (
-					<AlignmentToolbar
-						value={ attributes.textAlign }
-						onChange={ ( newAlign ) => {
-							setAttributes( { textAlign: newAlign || '' } );
-						} }
-					/>
-				) }
+				<AlignmentToolbar
+					value={ attributes.textAlign }
+					onChange={ ( newAlign ) => {
+						setAttributes( { textAlign: newAlign || '' } );
+					} }
+				/>
 			</BlockControls>
 			<InspectorControls>
 				<WidthPanel
