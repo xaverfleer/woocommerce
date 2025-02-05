@@ -9,7 +9,7 @@ overrides:
   '@wordpress/data': wp-6.6
   react-resize-aware: 3.1.1
 
-pnpmfileChecksum: kxz5g5a3bfs6hxevxhantmz4wa
+pnpmfileChecksum: 7otryvkmutbypzotqew4atnafq
 
 patchedDependencies:
   '@wordpress/edit-site@5.15.0':

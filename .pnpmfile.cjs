@@ -68,7 +68,7 @@ function updateConfig( packageName, packagePath, declaredDependencies, resolvedD
 			context.log( `[wireit][${ packageName }]    Inspecting workspace dependency: ${ key } (${ normalizedPath })` );
 
 			// Actualize output storage with the identified entries.
-			const dependencyFile = loadPackageFile( path.join( packagePath, 'node_modules', key ) );
+			const dependencyFile = loadPackageFile( normalizedPath );
 			if ( dependencyFile.files ) {
 				for ( const entry in dependencyFile.files ) {
 					const entryValue = dependencyFile.files[entry];
