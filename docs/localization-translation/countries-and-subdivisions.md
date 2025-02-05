@@ -1,6 +1,6 @@
 ---
 post_title: Updating Countries and Subdivisions
-menu_title: Translating WooCommerce
+menu_title: Countries and Subdivisions
 tags: how-to
 ---
 

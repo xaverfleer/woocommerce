@@ -1077,10 +1077,10 @@
         },
         {
           "post_title": "Updating Countries and Subdivisions",
-          "menu_title": "Translating WooCommerce",
+          "menu_title": "Countries and Subdivisions",
           "tags": "how-to",
           "edit_url": "https://github.com/woocommerce/woocommerce/edit/trunk/docs/localization-translation/countries-and-subdivisions.md",
-          "hash": "a36db16c2dc44da8e9493902ce4ac0f07b1651a570c62b52fc96bbd7ce0594fb",
+          "hash": "22938768e8f494d233a0f69a3332efa5e6acc6bcc83d6ae897788f628008cbae",
           "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/docs/localization-translation/countries-and-subdivisions.md",
           "id": "385b95e7f5ca43eeb33472f883765e3b931b2f76",
           "links": {
@@ -1928,5 +1928,5 @@
       "categories": []
     }
   ],
-  "hash": "4acbec64c853ae7b42ecd77aa2f59f26a774953cb56c85e0319fa0535faedcf7"
+  "hash": "775dfab002800edfc09df9507dc70e63f17ea9d8398d63612130f783fe587602"
 }
