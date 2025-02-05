@@ -16,6 +16,7 @@ import { getInputEdit } from '../../components/inputEdit';
 import { getTextareaEdit } from '../../components/textareaEdit';
 import { getColorEdit } from '../../components/colorEdit';
 import { getSelectEdit } from '../../components/selectEdit';
+import { getRadioEdit } from '../../components/radioEdit';
 
 export type DataItem = Record< string, BaseSettingsField[ 'value' ] >;
 
@@ -154,15 +155,34 @@ export const transformToField = (
 				Edit: getSelectEdit( help ),
 			};
 		}
-		case 'textarea':
+		case 'textarea': {
+			const { label, help } = getLabelAndHelp( setting );
+
 			return {
 				id: setting.id,
 				type: 'text',
 				placeholder: setting.placeholder,
-				description: String( setting.desc_tip ),
-				label: setting.desc,
-				Edit: getTextareaEdit,
+				label,
+				Edit: getTextareaEdit( help ),
 			};
+		}
+
+		case 'radio': {
+			const { label, help } = getLabelAndHelp( setting );
+
+			return {
+				id: setting.id,
+				type: 'text',
+				label,
+				elements: Object.entries( setting.options || {} ).map(
+					( [ value, _label ] ) => ( {
+						label: _label,
+						value,
+					} )
+				),
+				Edit: getRadioEdit( help ),
+			};
+		}
 
 		case 'color':
 			return {

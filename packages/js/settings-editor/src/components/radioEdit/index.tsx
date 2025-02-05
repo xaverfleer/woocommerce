@@ -3,32 +3,31 @@
  */
 import { createElement } from '@wordpress/element';
 import type { DataFormControlProps } from '@wordpress/dataviews';
-import { TextareaControl } from '@wordpress/components';
+import { RadioControl } from '@wordpress/components';
 
 /**
  * Internal dependencies
  */
 import type { DataFormItem } from '../../types';
 
-export const getTextareaEdit =
+export const getRadioEdit =
 	( help?: React.ReactNode ) =>
 	( { field, onChange, data }: DataFormControlProps< DataFormItem > ) => {
-		const { id, getValue, placeholder } = field;
-		const label = field.label === id ? undefined : field.label;
+		const { id, getValue, elements } = field;
 		const value = getValue( { item: data } );
+		const label = field.label === id ? undefined : field.label;
 
 		return (
-			<TextareaControl
-				__nextHasNoMarginBottom
+			<RadioControl
 				help={ help }
 				label={ label }
-				placeholder={ placeholder }
 				onChange={ ( newValue ) => {
 					onChange( {
 						[ id ]: newValue,
 					} );
 				} }
-				value={ value }
+				options={ elements }
+				selected={ value }
 				id={ id }
 			/>
 		);
