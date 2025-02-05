@@ -17,7 +17,6 @@ import '../../../base/components/quantity-selector/style.scss';
 
 export interface Attributes {
 	className?: string;
-	isDescendentOfSingleProductBlock: boolean;
 	quantitySelectorStyle: QuantitySelectorStyle;
 }
 
