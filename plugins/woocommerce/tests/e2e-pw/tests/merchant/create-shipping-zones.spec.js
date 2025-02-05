@@ -1,6 +1,4 @@
-const { test, expect } = require( '@playwright/test' );
-const { tags } = require( '../../fixtures/fixtures' );
-const wcApi = require( '@woocommerce/woocommerce-rest-api' ).default;
+const { test, expect, tags } = require( '../../fixtures/fixtures' );
 const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
 const maynePostal = 'V0N 2J0';
 const shippingZoneNameUSRegion = 'USA Zone';
@@ -8,32 +6,31 @@ const shippingZoneNameFlatRate = 'Canada with Flat rate';
 const shippingZoneNameFreeShip = 'BC with Free shipping';
 const shippingZoneNameLocalPickup = 'Mayne Island with Local pickup';
 
+test.beforeAll( async ( { api } ) => {
+	await api.put( 'settings/general/woocommerce_allowed_countries', {
+		value: 'all',
+	} );
+	await api.put( 'settings/general/woocommerce_currency', {
+		value: 'USD',
+	} );
+	await api.put( 'settings/general/woocommerce_price_thousand_sep', {
+		value: ',',
+	} );
+	await api.put( 'settings/general/woocommerce_price_decimal_sep', {
+		value: '.',
+	} );
+	await api.put( 'settings/general/woocommerce_price_num_decimals', {
+		value: '2',
+	} );
+} );
+
 test.describe(
 	'WooCommerce Shipping Settings - Add new shipping zone',
 	{ tag: [ tags.SERVICES ] },
 	() => {
 		test.use( { storageState: ADMIN_STATE_PATH } );
 
-		test.beforeAll( async ( { baseURL } ) => {
-			// Set selling location to all countries.
-			const api = new wcApi( {
-				url: baseURL,
-				consumerKey: process.env.CONSUMER_KEY,
-				consumerSecret: process.env.CONSUMER_SECRET,
-				version: 'wc/v3',
-			} );
-			await api.put( 'settings/general/woocommerce_allowed_countries', {
-				value: 'all',
-			} );
-		} );
-
-		test.afterAll( async ( { baseURL } ) => {
-			const api = new wcApi( {
-				url: baseURL,
-				consumerKey: process.env.CONSUMER_KEY,
-				consumerSecret: process.env.CONSUMER_SECRET,
-				version: 'wc/v3',
-			} );
+		test.afterAll( async ( { api } ) => {
 			await api.get( 'shipping/zones' ).then( ( response ) => {
 				for ( let i = 0; i < response.data.length; i++ ) {
 					if (
@@ -61,6 +58,7 @@ test.describe(
 			await page.goto(
 				'wp-admin/admin.php?page=wc-settings&tab=shipping'
 			);
+			//todo this conditional invalidates the whole test, as it is not testing the creation of the shipping zone. We should remove it and ensure the shipping zone doesn't exist in a fixture.
 			if (
 				await page
 					.locator( `text=${ shippingZoneNameLocalPickup }` )
@@ -117,7 +115,6 @@ test.describe(
 				await page.goto(
 					'wp-admin/admin.php?page=wc-settings&tab=shipping'
 				);
-				await page.reload(); // Playwright runs so fast, the location shows up as "Everywhere" at first
 			}
 
 			await expect( page.locator( '.wc-shipping-zones' ) ).toHaveText(
@@ -137,6 +134,7 @@ test.describe(
 			await page.goto(
 				'wp-admin/admin.php?page=wc-settings&tab=shipping'
 			);
+			//todo this conditional invalidates the whole test, as it is not testing the creation of the shipping zone. We should remove it and ensure the shipping zone doesn't exist in a fixture.
 			if (
 				await page
 					.locator( `text=${ shippingZoneNameFreeShip }` )
@@ -188,7 +186,6 @@ test.describe(
 				await page.goto(
 					'wp-admin/admin.php?page=wc-settings&tab=shipping'
 				);
-				await page.reload(); // Playwright runs so fast, the location shows up as "Everywhere" at first
 			}
 			await expect( page.locator( '.wc-shipping-zones' ) ).toHaveText(
 				/BC with Free shipping.*/
@@ -207,6 +204,7 @@ test.describe(
 			await page.goto(
 				'wp-admin/admin.php?page=wc-settings&tab=shipping'
 			);
+			//todo this conditional invalidates the whole test, as it is not testing the creation of the shipping zone. We should remove it and ensure the shipping zone doesn't exist in a fixture.
 			if (
 				await page
 					.locator( `text=${ shippingZoneNameFlatRate }` )
@@ -250,8 +248,9 @@ test.describe(
 				).toBeVisible();
 
 				await page
+					.getByText( 'Flat rate' )
 					.locator(
-						'td:has-text("Flat rate") ~ td.wc-shipping-zone-actions a.wc-shipping-zone-action-edit'
+						'~ td.wc-shipping-zone-actions a.wc-shipping-zone-action-edit'
 					)
 					.click();
 				await page.getByLabel( 'Cost', { exact: true } ).fill( '10' );
@@ -263,7 +262,6 @@ test.describe(
 				await page.goto(
 					'wp-admin/admin.php?page=wc-settings&tab=shipping'
 				);
-				await page.reload(); // Playwright runs so fast, the location shows up as "Everywhere" at first
 			}
 			await expect( page.locator( '.wc-shipping-zones' ) ).toHaveText(
 				/Canada with Flat rate*/
@@ -316,14 +314,6 @@ test.describe(
 				await page.goto(
 					'wp-admin/admin.php?page=wc-settings&tab=shipping'
 				);
-
-				try {
-					await page
-						.getByLabel( 'Close Tour' )
-						.click( { timeout: 5000 } ); // close the tour if visible
-				} catch ( e ) {}
-
-				await page.reload(); // Playwright runs so fast, the location shows up as "Everywhere" at first
 			}
 			await expect( page.locator( '.wc-shipping-zones' ) ).toHaveText(
 				/USA Zone.*/
@@ -335,8 +325,9 @@ test.describe(
 			);
 
 			await page
+				.getByText( 'USA Zone' )
 				.locator(
-					'td:has-text("USA Zone") ~ td.wc-shipping-zone-actions a.wc-shipping-zone-action-edit'
+					'~ td.wc-shipping-zone-actions a.wc-shipping-zone-action-edit'
 				)
 				.click();
 
@@ -404,8 +395,9 @@ test.describe(
 				).toBeVisible();
 
 				await page
+					.getByText( 'Flat rate' )
 					.locator(
-						'td:has-text("Flat rate") ~ td.wc-shipping-zone-actions a.wc-shipping-zone-action-edit'
+						'~ td.wc-shipping-zone-actions a.wc-shipping-zone-action-edit'
 					)
 					.click();
 				await page
@@ -441,14 +433,8 @@ test.describe( 'Verifies shipping options from customer perspective', () => {
 	// note: tests are being run in an unauthenticated state (not as admin)
 	let productId, shippingFreeId, shippingFlatId, shippingLocalId;
 
-	test.beforeAll( async ( { baseURL } ) => {
+	test.beforeAll( async ( { api } ) => {
 		// need to add a product to the store so that we can order it and check shipping options
-		const api = new wcApi( {
-			url: baseURL,
-			consumerKey: process.env.CONSUMER_KEY,
-			consumerSecret: process.env.CONSUMER_SECRET,
-			version: 'wc/v3',
-		} );
 		await api
 			.post( 'products', {
 				name: 'Shipping options are the best',
@@ -520,13 +506,7 @@ test.describe( 'Verifies shipping options from customer perspective', () => {
 		await page.goto( `shop/?add-to-cart=${ productId }` );
 	} );
 
-	test.afterAll( async ( { baseURL } ) => {
-		const api = new wcApi( {
-			url: baseURL,
-			consumerKey: process.env.CONSUMER_KEY,
-			consumerSecret: process.env.CONSUMER_SECRET,
-			version: 'wc/v3',
-		} );
+	test.afterAll( async ( { api } ) => {
 		await api.delete( `products/${ productId }`, { force: true } );
 		await api.delete( `shipping/zones/${ shippingFlatId }`, {
 			force: true,
@@ -558,9 +538,7 @@ test.describe( 'Verifies shipping options from customer perspective', () => {
 				page.locator( '.shipping ul#shipping_method > li > label' )
 			).toContainText( 'Local pickup' );
 			await expect(
-				page.locator(
-					'td[data-title="Total"] > strong > .amount > bdi'
-				)
+				page.locator( 'td[data-title="Total"]' )
 			).toContainText( '25.99' );
 		}
 	);
@@ -584,9 +562,7 @@ test.describe( 'Verifies shipping options from customer perspective', () => {
 				page.locator( '.shipping ul#shipping_method > li > label' )
 			).toContainText( 'Free shipping' );
 			await expect(
-				page.locator(
-					'td[data-title="Total"] > strong > .amount > bdi'
-				)
+				page.locator( 'td[data-title="Total"]' )
 			).toContainText( '25.99' );
 		}
 	);
@@ -614,9 +590,7 @@ test.describe( 'Verifies shipping options from customer perspective', () => {
 				page.locator( '.shipping ul#shipping_method > li > label' )
 			).toContainText( '10.00' );
 			await expect(
-				page.locator(
-					'td[data-title="Total"] > strong > .amount > bdi'
-				)
+				page.locator( 'td[data-title="Total"]' )
 			).toContainText( '35.99' );
 		}
 	);
