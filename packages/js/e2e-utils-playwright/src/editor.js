@@ -1,11 +1,8 @@
 export const closeChoosePatternModal = async ( { page } ) => {
 	const closeModal = page
-		.getByLabel( 'Scrollable section' )
-		.filter()
-		.getByRole( 'button', {
-			name: 'Close',
-			exact: true,
-		} );
+		.locator( 'div' )
+		.filter( { hasText: 'Choose a pattern' } )
+		.getByLabel( 'Close' );
 	await page.addLocatorHandler( closeModal, async () => {
 		await closeModal.click();
 	} );
