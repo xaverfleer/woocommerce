@@ -1,0 +1,4 @@
+Significance: minor
+Type: fix
+
+Ensure that the Mini Cart item count remains visible even when the inherited color has an alpha channel, which would make the item count color transparent.
