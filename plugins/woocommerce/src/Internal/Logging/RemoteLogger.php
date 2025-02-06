@@ -152,10 +152,6 @@ class RemoteLogger extends \WC_Log_Handler {
 			return false;
 		}
 
-		if ( ! $this->is_variant_assignment_allowed() ) {
-			return false;
-		}
-
 		if ( ! $this->should_current_version_be_logged() ) {
 			return false;
 		}
@@ -266,16 +262,6 @@ class RemoteLogger extends \WC_Log_Handler {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Check if the store is allowed to log based on the variant assignment percentage.
-	 *
-	 * @return bool
-	 */
-	private function is_variant_assignment_allowed() {
-		$assignment = SafeGlobalFunctionProxy::get_option( 'woocommerce_remote_variant_assignment', 0 ) ?? 0;
-		return ( $assignment <= 12 ); // Considering 10% of the 0-120 range.
 	}
 
 	/**
