@@ -143,6 +143,10 @@ If you need to create a new pre-defined environment, you can follow these steps:
   run `E2E_ENV_KEY='your-key' ./tests/e2e-pw/bin/dotenv.sh -e my-new-env`. This script command will encrypt the `.env`
   file into `tests/e2e-pw/envs/my-new-env/.env.enc`.
 
+> [!TIP]
+> Creating an environment directory starting with `_local` will make it ignored by git, so you can store your local environment configurations without worrying about accidentally committing them.
+> Example: _local_my-own-jn-testing-site
+
 ## Writing e2e tests
 
 There are no hard rules for writing tests, but use your common sense when it comes to code duplication and layers of
