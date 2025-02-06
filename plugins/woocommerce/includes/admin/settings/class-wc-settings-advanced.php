@@ -5,7 +5,7 @@
  * @package  WooCommerce\Admin
  */
 
-use Automattic\WooCommerce\Admin\Features\Features;
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -53,7 +53,7 @@ class WC_Settings_Advanced extends WC_Settings_Page {
 			'woocommerce_com' => __( 'WooCommerce.com', 'woocommerce' ),
 		);
 
-		if ( Features::is_enabled( 'blueprint' ) ) {
+		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) ) {
 			$sections['blueprint'] = __( 'Blueprint', 'woocommerce' );
 		}
 

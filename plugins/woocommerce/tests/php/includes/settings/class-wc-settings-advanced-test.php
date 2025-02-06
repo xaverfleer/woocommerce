@@ -8,6 +8,7 @@
 use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\FunctionsMockerHack;
 use Automattic\WooCommerce\Testing\Tools\CodeHacking\Hacks\StaticMockerHack;
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
 
 require_once __DIR__ . '/class-wc-settings-unit-test-case.php';
 
@@ -33,7 +34,7 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 			'features',
 		);
 
-		if ( \Automattic\WooCommerce\Admin\Features\Features::is_enabled( 'blueprint' ) ) {
+		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) ) {
 			$position = array_search( 'woocommerce_com', $expected, true ) + 1;
 			array_splice( $expected, $position, 0, 'blueprint' );
 		}
@@ -176,17 +177,17 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		StaticMockerHack::add_method_mocks(
 			array(
 				'WC_Admin_Webhooks' => array(
-					'page_output' => function() use ( &$actual_invoked_class ) {
+					'page_output' => function () use ( &$actual_invoked_class ) {
 						$actual_invoked_class = 'WC_Admin_Webhooks';
 					},
 				),
 				'WC_Admin_API_Keys' => array(
-					'page_output' => function() use ( &$actual_invoked_class ) {
+					'page_output' => function () use ( &$actual_invoked_class ) {
 						$actual_invoked_class = 'WC_Admin_API_Keys';
 					},
 				),
 				'WC_Admin_Settings' => array(
-					'output_fields' => function( $settings ) use ( &$actual_invoked_class ) {
+					'output_fields' => function () use ( &$actual_invoked_class ) {
 						$actual_invoked_class = 'WC_Admin_Settings';
 					},
 				),
@@ -218,12 +219,12 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		StaticMockerHack::add_method_mocks(
 			array(
 				'WC_Admin_Webhooks' => array(
-					'notices' => function() use ( &$actual_invoked_class ) {
+					'notices' => function () use ( &$actual_invoked_class ) {
 						$actual_invoked_class = 'WC_Admin_Webhooks';
 					},
 				),
 				'WC_Admin_API_Keys' => array(
-					'notices' => function() use ( &$actual_invoked_class ) {
+					'notices' => function () use ( &$actual_invoked_class ) {
 						$actual_invoked_class = 'WC_Admin_API_Keys';
 					},
 				),
@@ -296,7 +297,7 @@ class WC_Settings_Advanced_Test extends WC_Settings_Unit_Test_Case {
 		StaticMockerHack::add_method_mocks(
 			array(
 				'WC_Admin_Settings' => array(
-					'save_fields' => function( $settings ) use ( &$settings_were_saved ) {
+					'save_fields' => function () use ( &$settings_were_saved ) {
 						$settings_were_saved = true;
 					},
 				),

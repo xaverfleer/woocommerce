@@ -116,7 +116,7 @@ const registerSlotFills = () => {
 		registerSiteVisibilitySlotFill();
 	}
 
-	if ( features?.blueprint === true ) {
+	if ( isFeatureEnabled( 'blueprint' ) ) {
 		registerBlueprintSlotfill();
 	}
 
