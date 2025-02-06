@@ -27,7 +27,6 @@ const { Fill } = createSlotFill( SETTINGS_SLOT_FILL_CONSTANT );
 
 const Blueprint = () => {
 	const [ exportEnabled, setExportEnabled ] = useState( true );
-	const [ exportAsZip, setExportAsZip ] = useState( false );
 	const [ error, setError ] = useState( null );
 
 	const blueprintStepGroups =
@@ -57,7 +56,6 @@ const Blueprint = () => {
 				method: 'POST',
 				data: {
 					steps: _steps,
-					export_as_zip: exportAsZip,
 				},
 			} );
 			const link = document.createElement( 'a' );
@@ -192,22 +190,6 @@ const Blueprint = () => {
 			) ) }
 
 			<div id="download-link-container"></div>
-			<h4>{ __( 'Options', 'woocommerce' ) }</h4>
-			<div>
-				<input
-					type="checkbox"
-					id="export-as-zip"
-					name={ 'export-as-zip' }
-					value={ 'yes' }
-					checked={ exportAsZip }
-					onChange={ () => {
-						setExportAsZip( ! exportAsZip );
-					} }
-				/>
-				<label htmlFor="export-as-zip">
-					{ __( 'Export as a zip (Experimental)', 'woocommerce' ) }
-				</label>
-			</div>
 			<br></br>
 			<Button
 				variant="primary"
