@@ -181,7 +181,7 @@ class ProductGalleryThumbnails extends AbstractBlock {
 				$processor->set_attribute( 'tabindex', '0' );
 				$processor->set_attribute(
 					'data-wc-on--click',
-					'actions.selectImage'
+					'actions.selectCurrentImage'
 				);
 
 				$html .= $processor->get_updated_html();

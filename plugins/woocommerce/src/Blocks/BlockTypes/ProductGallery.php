@@ -126,17 +126,16 @@ class ProductGallery extends AbstractBlock {
 				'data-wc-context',
 				wp_json_encode(
 					array(
-						'selectedImageNumber'    => 1,
-						'isDialogOpen'           => false,
-						'visibleImagesIds'       => ProductGalleryUtils::get_product_gallery_image_ids( $product, null, true ),
-						'dialogVisibleImagesIds' => ProductGalleryUtils::get_product_gallery_image_ids( $product, null, false ),
-						'productId'              => $product_id,
-						'elementThatTriggeredDialogOpening' => null,
-						'disableLeft'            => true,
-						'disableRight'           => false,
-						'isDragging'             => false,
-						'touchStartX'            => 0,
-						'touchCurrentX'          => 0,
+						'selectedImageNumber' => 1,
+						'isDialogOpen'        => false,
+						'disableLeft'         => true,
+						'disableRight'        => false,
+						'isDragging'          => false,
+						'touchStartX'         => 0,
+						'touchCurrentX'       => 0,
+						'productId'           => $product_id,
+						'imageIds'            => ProductGalleryUtils::get_product_gallery_image_ids( $product, null, false ),
+
 					),
 					JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP
 				)
