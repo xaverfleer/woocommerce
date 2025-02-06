@@ -508,7 +508,7 @@
           "post_title": "Change a currency symbol",
           "tags": "code-snippet",
           "edit_url": "https://github.com/woocommerce/woocommerce/edit/trunk/docs/code-snippets/change-a-currency-symbol.md",
-          "hash": "1e25d4cf42f3b5907befc8d3b6d3999ca31c2f97b9512eadb749935685d1a7d6",
+          "hash": "81da31279a278ad1281dcec75f3c72049d7732bf318618da5d9e5cd337eff79b",
           "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/docs/code-snippets/change-a-currency-symbol.md",
           "id": "35ff98a542ad0b092aa44a049c6015cd43ed5857"
         },
@@ -1928,5 +1928,5 @@
       "categories": []
     }
   ],
-  "hash": "24882f4f16a7b0982f72fed28e3b61c88654a9d40a3cb99b18dd9c229e3bc873"
+  "hash": "fe63e7520363b24882f4f16a7b0982f72fed28e3b61c88654a9d40a3cb99b173"
 }
