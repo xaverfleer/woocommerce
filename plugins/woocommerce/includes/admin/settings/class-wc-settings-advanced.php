@@ -54,7 +54,7 @@ class WC_Settings_Advanced extends WC_Settings_Page {
 		);
 
 		if ( FeaturesUtil::feature_is_enabled( 'blueprint' ) ) {
-			$sections['blueprint'] = __( 'Blueprint', 'woocommerce' );
+			$sections['blueprint'] = __( 'Blueprint (beta)', 'woocommerce' );
 		}
 
 		return $sections;
