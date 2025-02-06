@@ -146,4 +146,16 @@
 			}
 		}
 	}
+
+	@include breakpoint("<600px") {
+		.wc-block-product-filters__overlay-content {
+			.wp-block-group {
+				display: block;
+
+				> div {
+					margin: 20px 0;
+				}
+			}
+		}
+	}
 }
