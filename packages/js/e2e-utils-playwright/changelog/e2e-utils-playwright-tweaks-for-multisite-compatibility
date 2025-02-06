@@ -1,4 +1,0 @@
-Significance: minor
-Type: fix
-
-Tweak editor url to correctly resolve for multisite subdirectory site URLs

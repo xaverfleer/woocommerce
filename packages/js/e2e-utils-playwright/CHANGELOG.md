@@ -2,6 +2,12 @@
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0](https://www.npmjs.com/package/@woocommerce/e2e-utils-playwright/v/0.3.0) - 2025-02-06 
+
+-   Patch - Tweak editor url to correctly resolve for multisite subdirectory site URLs [#55077]
+-   Patch - Improve the scope of Checkout E2E utils [#55073]
+-   Minor - Monorepo: bump pnpm version to 9.15.0 [#54189]
+
 ## [0.2.1](https://www.npmjs.com/package/@woocommerce/e2e-utils-playwright/v/0.2.1) - 2024-12-18 
 
 -   Patch - Improve Checkout Utils for Playwright [#53557]
