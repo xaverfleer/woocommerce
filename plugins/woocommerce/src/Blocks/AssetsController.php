@@ -75,12 +75,6 @@ final class AssetsController {
 		$this->api->register_script( 'wc-blocks-components', 'assets/client/blocks/blocks-components.js' );
 		$this->api->register_script( 'wc-schema-parser', 'assets/client/blocks/wc-schema-parser.js', array(), false );
 
-		// Register the interactivity components here for now.
-		$this->api->register_script( 'wc-interactivity-dropdown', 'assets/client/blocks/wc-interactivity-dropdown.js', array() );
-		$this->api->register_script( 'wc-interactivity-checkbox-list', 'assets/client/blocks/wc-interactivity-checkbox-list.js', array() );
-		$this->register_style( 'wc-interactivity-checkbox-list', plugins_url( $this->api->get_block_asset_build_path( 'wc-interactivity-checkbox-list', 'css' ), dirname( __DIR__ ) ), array(), 'all', true );
-		$this->register_style( 'wc-interactivity-dropdown', plugins_url( $this->api->get_block_asset_build_path( 'wc-interactivity-dropdown', 'css' ), dirname( __DIR__ ) ), array(), 'all', true );
-
 		// Customer Effort Score.
 		$this->api->register_script(
 			'wc-customer-effort-score',
