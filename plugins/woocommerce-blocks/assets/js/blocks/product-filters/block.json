@@ -40,18 +40,5 @@
 	"textdomain": "woocommerce",
 	"usesContext": [ "postId", "query", "queryId" ],
 	"viewScript": "wc-product-filters-frontend",
-	"example": {},
-	"attributes": {
-		"overlayIcon": {
-			"type": "string",
-			"default": "filter-icon-2"
-		},
-		"overlayIconSize": {
-			"type": "number"
-		},
-		"overlayButtonType": {
-			"type": "string",
-			"default": "label-icon"
-		}
-	}
+	"example": {}
 }

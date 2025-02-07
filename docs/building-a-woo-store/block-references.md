@@ -1261,7 +1261,6 @@ Let shoppers filter products displayed on the page.
 -   **Ancestor:** 
 -   **Parent:** 
 -	**Supports:** align, color (background, button, heading, text, ~~enableContrastChecker~~), inserter, interactivity, layout (default, ~~allowEditing~~), multiple, spacing (blockGap), typography (fontSize)
--	**Attributes:** overlayButtonType, overlayIcon, overlayIconSize
 
 ## Active (Experimental) - woocommerce/product-filter-active
 

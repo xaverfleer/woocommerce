@@ -21,14 +21,10 @@ function presetToCssVariable( preset: string ) {
 
 export function getProductFiltersCss( attributes: BlockAttributes ) {
 	const colors = getColorsFromBlockSupports( attributes );
-	const { overlayIconSize } = attributes;
 	const styles: Record< string, string | undefined > = {
 		'--wc-product-filters-text-color': colors.textColor || '#111',
 		'--wc-product-filters-background-color':
 			colors.backgroundColor || '#fff',
-		'--wc-product-filters-overlay-icon-size': overlayIconSize
-			? `${ overlayIconSize }px`
-			: undefined,
 	};
 	if (
 		objectHasProp( attributes, 'style' ) &&
