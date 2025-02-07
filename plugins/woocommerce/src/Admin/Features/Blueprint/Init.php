@@ -106,15 +106,12 @@ class Init {
 	 * @return array
 	 */
 	public function get_step_groups_for_js() {
-		$all_plugins    = $this->wp_get_plugins();
-		$active_plugins = array_intersect_key( $all_plugins, array_flip( get_option( 'active_plugins', array() ) ) );
-		$active_theme   = $this->wp_get_theme();
-
 		return array(
 			array(
 				'id'          => 'settings',
 				'description' => __( 'It includes all the items featured in WooCommerce | Settings.', 'woocommerce' ),
-				'label'       => __( 'Settings', 'woocommerce' ),
+				'label'       => __( 'WooCommerce Settings', 'woocommerce' ),
+				'icon'        => 'settings',
 				'items'       => array_map(
 					function ( $exporter ) {
 						return array(
@@ -128,8 +125,9 @@ class Init {
 			),
 			array(
 				'id'          => 'plugins',
-				'description' => __( 'It includes all the active plugins.', 'woocommerce' ),
+				'description' => __( 'It includes all the installed plugins and extensions.', 'woocommerce' ),
 				'label'       => __( 'Plugins and extensions', 'woocommerce' ),
+				'icon'        => 'plugins',
 				'items'       => array_map(
 					function ( $key, $plugin ) {
 						return array(
@@ -137,19 +135,24 @@ class Init {
 							'label' => $plugin['Name'],
 						);
 					},
-					array_keys( $active_plugins ),
-					$active_plugins
+					array_keys( $this->wp_get_plugins() ),
+					$this->wp_get_plugins()
 				),
 			),
 			array(
 				'id'          => 'themes',
-				'description' => __( 'It includes all the active themes.', 'woocommerce' ),
+				'description' => __( 'It includes all the installed themes.', 'woocommerce' ),
 				'label'       => __( 'Themes', 'woocommerce' ),
-				'items'       => array(
-					array(
-						'id'    => $active_theme->get_stylesheet(),
-						'label' => $active_theme->get( 'Name' ),
-					),
+				'icon'        => 'brush',
+				'items'       => array_map(
+					function ( $key, $theme ) {
+						return array(
+							'id'    => $key,
+							'label' => $theme['Name'],
+						);
+					},
+					array_keys( $this->wp_get_themes() ),
+					$this->wp_get_themes()
 				),
 			),
 		);

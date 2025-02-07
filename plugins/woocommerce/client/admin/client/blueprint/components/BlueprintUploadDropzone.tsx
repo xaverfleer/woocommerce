@@ -9,7 +9,7 @@ import {
 	Button,
 	Icon,
 } from '@wordpress/components';
-import { closeSmall } from '@wordpress/icons';
+import { closeSmall, upload } from '@wordpress/icons';
 import { __ } from '@wordpress/i18n';
 import { useMachine } from '@xstate5/react';
 import {
@@ -25,7 +25,6 @@ import { dispatch } from '@wordpress/data';
 /**
  * Internal dependencies
  */
-import uploadIcon from './upload.svg';
 import './style.scss';
 import { OverwriteConfirmationModal } from '../settings/overwrite-confirmation-modal';
 
@@ -334,13 +333,12 @@ export const BlueprintUploadDropzone = () => {
 						} }
 					>
 						<div className="blueprint-upload-dropzone">
-							<img
-								className="blueprint-upload-dropzone-icon"
-								src={ uploadIcon }
-								alt="Upload"
-							/>
+							<Icon icon={ upload } alt="Upload" />
 							<p className="blueprint-upload-dropzone-text">
-								{ __( 'Upload a .json file', 'woocommerce' ) }
+								{ __( 'Drag and drop or ', 'woocommerce' ) }
+								<span>
+									{ __( 'choose a file', 'woocommerce' ) }
+								</span>
 							</p>
 							<DropZone
 								onFilesDrop={ ( files ) => {
