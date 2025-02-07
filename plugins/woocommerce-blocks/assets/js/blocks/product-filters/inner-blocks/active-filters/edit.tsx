@@ -22,12 +22,7 @@ const Edit = () => {
 			allowedBlocks: getAllowedBlocks( EXCLUDED_BLOCKS ),
 			template: [
 				[ 'woocommerce/product-filter-removable-chips' ],
-				[
-					'woocommerce/product-filter-clear-button',
-					{
-						clearType: 'all',
-					},
-				],
+				[ 'woocommerce/product-filter-clear-button' ],
 			],
 		}
 	);

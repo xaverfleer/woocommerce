@@ -162,7 +162,6 @@ const Edit = ( props: EditProps ) => {
 									__( 'Attribute', 'woocommerce' ),
 							},
 						],
-						[ 'woocommerce/product-filter-clear-button' ],
 					].filter( Boolean ) as unknown as TemplateArray,
 				],
 				[ displayStyle ],

@@ -227,7 +227,7 @@ Create an "Add To Cart" composition by using blocks
 -   **Ancestor:** 
 -   **Parent:** 
 -	**Supports:** interactivity
--	**Attributes:** isDescendentOfSingleProductBlock
+-	**Attributes:** 
 
 ## Grouped Product Selector (Experimental) - woocommerce/add-to-cart-with-options-grouped-product-selector
 
@@ -1250,7 +1250,7 @@ Display a button so the customer can add a product to their cart. Options will a
 -   **Ancestor:** 
 -   **Parent:** 
 -	**Supports:** interactivity
--	**Attributes:** isDescendentOfSingleProductBlock, quantitySelectorStyle
+-	**Attributes:** quantitySelectorStyle
 
 ## Product Filters (Experimental) - woocommerce/product-filters
 
@@ -1306,16 +1306,16 @@ Display filter options as chips.
 -	**Supports:** 
 -	**Attributes:** chipBackground, chipBorder, chipText, customChipBackground, customChipBorder, customChipText, customSelectedChipBackground, customSelectedChipBorder, customSelectedChipText, selectedChipBackground, selectedChipBorder, selectedChipText
 
-## Clear (Experimental) - woocommerce/product-filter-clear-button
+## Clear filters (Experimental) - woocommerce/product-filter-clear-button
 
-Allows shoppers to reset this filter.
+Allows shoppers to clear active filters.
 
 -	**Name:** woocommerce/product-filter-clear-button
 -	**Category:** woocommerce
--   **Ancestor:** woocommerce/product-filter,woocommerce/product-filter-attribute,woocommerce/product-filter-price,woocommerce/product-filter-rating,woocommerce/product-filter-status,woocommerce/product-filter-active
+-   **Ancestor:** woocommerce/product-filter-active
 -   **Parent:** 
 -	**Supports:** inserter, interactivity
--	**Attributes:** clearType
+-	**Attributes:** 
 
 ## Price (Experimental) - woocommerce/product-filter-price
 

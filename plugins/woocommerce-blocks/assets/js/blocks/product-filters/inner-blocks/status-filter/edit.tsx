@@ -49,7 +49,6 @@ const Edit = ( props: EditProps ) => {
 								content: __( 'Status', 'woocommerce' ),
 							},
 						],
-						[ 'woocommerce/product-filter-clear-button' ],
 					].filter( Boolean ) as unknown as TemplateArray,
 				],
 				[ 'woocommerce/product-filter-checkbox-list' ],

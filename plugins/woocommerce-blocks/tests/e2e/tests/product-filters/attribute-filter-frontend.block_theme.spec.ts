@@ -37,7 +37,9 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 		} ) => {
 			await page.goto( '/shop' );
 
-			const button = page.getByRole( 'button', { name: 'Clear' } );
+			const button = page.getByRole( 'button', {
+				name: 'Clear filters',
+			} );
 
 			await expect( button ).toBeHidden();
 		} );
@@ -87,7 +89,9 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			// wait for navigation
 			await page.waitForURL( /.*filter_color=gray.*/ );
 
-			const button = page.getByRole( 'button', { name: 'Clear' } );
+			const button = page.getByRole( 'button', {
+				name: 'Clear filters',
+			} );
 
 			await expect( button ).toBeVisible();
 		} );
@@ -105,7 +109,9 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 
 			await grayCheckbox.click();
 
-			const button = page.getByRole( 'button', { name: 'Clear' } );
+			const button = page.getByRole( 'button', {
+				name: 'Clear filters',
+			} );
 
 			await expect( button ).toBeHidden();
 		} );
@@ -121,7 +127,9 @@ test.describe( 'woocommerce/product-filter-attribute - Frontend', () => {
 			// wait for navigation
 			await page.waitForURL( /.*filter_color=gray.*/ );
 
-			const button = page.getByRole( 'button', { name: 'Clear' } );
+			const button = page.getByRole( 'button', {
+				name: 'Clear filters',
+			} );
 
 			await button.click();
 

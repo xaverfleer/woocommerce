@@ -86,20 +86,5 @@ const { state, actions } = store( 'woocommerce/product-filter-attribute', {
 
 			productFiltersStore.actions.navigate();
 		},
-
-		clearFilters: () => {
-			const context = getContext< ProductFilterAttributeContext >();
-			const productFiltersStore = store< ProductFiltersStore >(
-				'woocommerce/product-filters'
-			);
-
-			productFiltersStore.actions.removeActiveFiltersBy(
-				( item ) =>
-					item.type === 'attribute' &&
-					item.attribute?.slug === context.attributeSlug
-			);
-
-			productFiltersStore.actions.navigate();
-		},
 	},
 } );
