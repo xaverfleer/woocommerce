@@ -120,6 +120,17 @@ class Transformer {
 				$this->handle_checkbox_setting( $setting, $transformed_settings );
 				break;
 
+			case 'info':
+				if ( ! empty( $setting['text'] ) ) {
+					$setting['text'] = wp_kses_post( wpautop( wptexturize( $setting['text'] ) ) );
+				}
+				if ( ! empty( $setting['row_class'] ) && substr( $setting['row_class'], 0, 16 ) !== 'wc-settings-row-' ) {
+					$setting['row_class'] = 'wc-settings-row-' . $setting['row_class'];
+				}
+
+				$this->add_setting( $setting, $transformed_settings );
+				break;
+
 			default:
 				$this->add_setting( $setting, $transformed_settings );
 				break;
