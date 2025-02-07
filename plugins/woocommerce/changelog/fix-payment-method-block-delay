@@ -1,0 +1,4 @@
+Significance: patch
+Type: fix
+
+Prevent a delay in rendering the checkout block payment methods on first load.
