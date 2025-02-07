@@ -13,10 +13,12 @@ type Props = {
 	attributes: BlockAttributes;
 };
 
-const Save = ( { attributes }: Props ): JSX.Element | null => {
+const Save = ( { attributes, innerBlocks }: Props ): JSX.Element | null => {
 	if (
 		attributes.isDescendentOfQueryLoop ||
-		attributes.isDescendentOfSingleProductBlock
+		attributes.isDescendentOfSingleProductBlock ||
+		! innerBlocks ||
+		innerBlocks?.length === 0
 	) {
 		return null;
 	}

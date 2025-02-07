@@ -13,7 +13,7 @@
 			class="wp-block-group"
 			style="margin-top: 1rem; margin-bottom: 1rem"
 		>
-			<!-- wp:woocommerce/add-to-cart-with-options-quantity-selector /-->
+			<!-- wp:woocommerce/add-to-cart-with-options-quantity-selector {"quantitySelectorStyle":"stepper"} /-->
 
 			<!-- wp:post-title {"isLink":true,"style":{"layout":{"selfStretch":"fill"},"spacing":{"margin":{"top":"0","bottom":"0"}},"typography":{"fontWeight":400}},"fontSize":"medium"} /-->
 
@@ -24,8 +24,6 @@
 	<!-- /wp:woocommerce/add-to-cart-with-options-grouped-product-selector-item -->
 </div>
 <!-- /wp:woocommerce/add-to-cart-with-options-grouped-product-selector -->
-<!-- wp:woocommerce/product-button {"textAlign":"center","fontSize":"small"} -->
-<div
-	class="wp-block-woocommerce-product-button is-loading has-small-font-size"
-></div>
-<!-- /wp:woocommerce/product-button -->
+<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:woocommerce/product-button {"textAlign":"left","fontSize":"small"} /--></div>
+<!-- /wp:group -->

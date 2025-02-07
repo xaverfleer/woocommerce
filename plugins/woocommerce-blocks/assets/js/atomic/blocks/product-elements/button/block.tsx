@@ -111,6 +111,7 @@ const AddToCartButton = ( {
 const AddToCartButtonPlaceholder = ( {
 	className,
 	style,
+	isLoading,
 }: AddToCartButtonPlaceholderAttributes ): JSX.Element => {
 	return (
 		<button
@@ -119,12 +120,17 @@ const AddToCartButtonPlaceholder = ( {
 				'wp-element-button',
 				'add_to_cart_button',
 				'wc-block-components-product-button__button',
-				'wc-block-components-product-button__button--placeholder',
+				{
+					'wc-block-components-product-button__button--placeholder':
+						isLoading,
+				},
 				className
 			) }
 			style={ style }
 			disabled={ true }
-		/>
+		>
+			{ __( 'Add to cart', 'woocommerce' ) }
+		</button>
 	);
 };
 
@@ -132,7 +138,7 @@ export const Block = ( props: BlockAttributes ): JSX.Element => {
 	const { className, textAlign } = props;
 	const styleProps = useStyleProps( props );
 	const { parentClassName } = useInnerBlockLayoutContext();
-	const { product } = useProductDataContext();
+	const { isLoading, product } = useProductDataContext();
 
 	return (
 		<div
@@ -157,6 +163,7 @@ export const Block = ( props: BlockAttributes ): JSX.Element => {
 				<AddToCartButtonPlaceholder
 					style={ styleProps.style }
 					className={ styleProps.className }
+					isLoading={ isLoading }
 				/>
 			) }
 		</div>
