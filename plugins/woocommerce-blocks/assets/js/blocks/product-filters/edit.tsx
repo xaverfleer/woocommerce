@@ -37,6 +37,7 @@ const TEMPLATE: InnerBlockTemplate[] = [
 
 export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 	const { attributes } = props;
+	const { isPreview } = attributes;
 	const [ isOpen, setIsOpen ] = useState( false );
 	const blockProps = useBlockProps( {
 		className: clsx( 'wc-block-product-filters', {
@@ -47,46 +48,58 @@ export const Edit = ( props: BlockEditProps< BlockAttributes > ) => {
 
 	return (
 		<div { ...blockProps }>
-			<button
-				className="wc-block-product-filters__open-overlay"
-				onClick={ () => setIsOpen( ! isOpen ) }
-			>
-				<Icon icon={ filterThreeLines } />
-				<span>{ __( 'Filter products', 'woocommerce' ) }</span>
-			</button>
-
-			<div className="wc-block-product-filters__overlay">
-				<div className="wc-block-product-filters__overlay-wrapper">
-					<div
-						className="wc-block-product-filters__overlay-dialog"
-						role="dialog"
-					>
-						<header className="wc-block-product-filters__overlay-header">
-							<button
-								className="wc-block-product-filters__close-overlay"
-								onClick={ () => setIsOpen( ! isOpen ) }
-							>
-								<span>{ __( 'Close', 'woocommerce' ) }</span>
-								<Icon icon={ close } />
-							</button>
-						</header>
-						<div className="wc-block-product-filters__overlay-content">
-							<InnerBlocks
-								templateLock={ false }
-								template={ TEMPLATE }
-							/>
-						</div>
-						<footer className="wc-block-product-filters__overlay-footer">
-							<button
-								className="wc-block-product-filters__apply wp-block-button__link wp-element-button"
-								onClick={ () => setIsOpen( ! isOpen ) }
-							>
-								<span>{ __( 'Apply', 'woocommerce' ) }</span>
-							</button>
-						</footer>
-					</div>
+			{ isPreview ? (
+				<div className="wc-block-product-filters__overlay-content">
+					<InnerBlocks templateLock={ false } template={ TEMPLATE } />
 				</div>
-			</div>
+			) : (
+				<>
+					<button
+						className="wc-block-product-filters__open-overlay"
+						onClick={ () => setIsOpen( ! isOpen ) }
+					>
+						<Icon icon={ filterThreeLines } />
+						<span>{ __( 'Filter products', 'woocommerce' ) }</span>
+					</button>
+
+					<div className="wc-block-product-filters__overlay">
+						<div className="wc-block-product-filters__overlay-wrapper">
+							<div
+								className="wc-block-product-filters__overlay-dialog"
+								role="dialog"
+							>
+								<header className="wc-block-product-filters__overlay-header">
+									<button
+										className="wc-block-product-filters__close-overlay"
+										onClick={ () => setIsOpen( ! isOpen ) }
+									>
+										<span>
+											{ __( 'Close', 'woocommerce' ) }
+										</span>
+										<Icon icon={ close } />
+									</button>
+								</header>
+								<div className="wc-block-product-filters__overlay-content">
+									<InnerBlocks
+										templateLock={ false }
+										template={ TEMPLATE }
+									/>
+								</div>
+								<footer className="wc-block-product-filters__overlay-footer">
+									<button
+										className="wc-block-product-filters__apply wp-block-button__link wp-element-button"
+										onClick={ () => setIsOpen( ! isOpen ) }
+									>
+										<span>
+											{ __( 'Apply', 'woocommerce' ) }
+										</span>
+									</button>
+								</footer>
+							</div>
+						</div>
+					</div>
+				</>
+			) }
 		</div>
 	);
 };

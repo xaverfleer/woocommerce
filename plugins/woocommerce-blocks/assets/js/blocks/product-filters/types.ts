@@ -5,6 +5,7 @@ import { BlockEditProps } from '@wordpress/blocks';
 
 export type BlockAttributes = {
 	productId?: string;
+	isPreview: boolean;
 };
 
 export type EditProps = BlockEditProps< BlockAttributes >;
