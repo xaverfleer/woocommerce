@@ -1737,7 +1737,7 @@
           "post_title": "User Experience Guidelines - Payment Button Size and Anatomy",
           "menu_title": "Payment Button Size",
           "edit_url": "https://github.com/woocommerce/woocommerce/edit/trunk/docs/ux-guidelines-payments/payment-button-size.md",
-          "hash": "b9165eb27a79bb696d7f0fcea1ef8a36f56ffd01501447f4c266c95f515a8ee1",
+          "hash": "0be63cb8f44339510f92b6ce2cd9c39b751f2d468e49a34fbd73a548f1f79c6d",
           "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/docs/ux-guidelines-payments/payment-button-size.md",
           "id": "0920df1611e1b1b3e2f33c810a8f8e8ae09dd67c"
         },
@@ -1745,7 +1745,7 @@
           "post_title": "User Experience Guidelines - Payment Button Layout",
           "menu_title": "Payment Button Layout",
           "edit_url": "https://github.com/woocommerce/woocommerce/edit/trunk/docs/ux-guidelines-payments/payment-button-layout.md",
-          "hash": "bc518454d8552c5da08d9635799c578d730341b115f7f8a63e9123628242c772",
+          "hash": "662daf80937372a1b8848a58e38417a5ab69c0c0f4fe55a59509d74494561af2",
           "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/docs/ux-guidelines-payments/payment-button-layout.md",
           "id": "96caecc340794e5c80af271e5cc844e0b3d80a04"
         }
@@ -1928,5 +1928,5 @@
       "categories": []
     }
   ],
-  "hash": "ffb2b8739849e1c07de692d4707b5dcf9f224796b26582d93f66394b443cc5f0"
+  "hash": "ddc7ee8f558eb847ae57ebe8b8401b1eceab8b31b356d27387b1b12b57482ed6"
 }
