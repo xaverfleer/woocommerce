@@ -211,6 +211,18 @@ if ( ! class_exists( 'WC_Settings_Page', false ) ) :
 				'is_modern' => $this->is_modern,
 			);
 
+			$custom_start_content = $this->get_custom_view( 'woocommerce_before_settings_' . $this->id );
+
+			if ( ! empty( $custom_start_content ) ) {
+				$pages[ $this->id ]['start'] = $this->get_custom_view_object( $custom_start_content );
+			}
+
+			$custom_end_content = $this->get_custom_view( 'woocommerce_after_settings_' . $this->id );
+
+			if ( ! empty( $custom_end_content ) ) {
+				$pages[ $this->id ]['end'] = $this->get_custom_view_object( $custom_end_content );
+			}
+
 			return $pages;
 		}
 
