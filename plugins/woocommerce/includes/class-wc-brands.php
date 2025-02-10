@@ -183,13 +183,15 @@ class WC_Brands {
 		// Get the custom taxonomy terms in use by this post.
 		$terms = get_the_terms( $post->ID, 'product_brand' );
 
-		if ( empty( $terms ) ) {
-			// If no terms are assigned to this post, use a string instead (can't leave the placeholder there).
-			$product_brand = _x( 'uncategorized', 'slug', 'woocommerce' );
-		} else {
+		// If no terms are assigned to this post, use a string instead (can't leave the placeholder there).
+		$product_brand = _x( 'uncategorized', 'slug', 'woocommerce' );
+
+		if ( is_array( $terms ) && ! empty( $terms ) ) {
 			// Replace the placeholder rewrite tag with the first term's slug.
-			$first_term    = array_shift( $terms );
-			$product_brand = $first_term->slug;
+			$first_term = array_shift( $terms );
+			if ( $first_term instanceof WP_Term ) {
+				$product_brand = $first_term->slug;
+			}
 		}
 
 		$find = array(
