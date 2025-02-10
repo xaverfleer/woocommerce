@@ -18,25 +18,6 @@ class AddToCartForm extends AbstractBlock {
 	protected $block_name = 'add-to-cart-form';
 
 	/**
-	 * Initializes the AddToCartForm block and hooks into the `wc_add_to_cart_message_html` filter
-	 * to prevent displaying the Cart Notice when the block is inside the Single Product block
-	 * and the Add to Cart button is clicked.
-	 *
-	 * It also hooks into the `woocommerce_add_to_cart_redirect` filter to prevent redirecting
-	 * to another page when the block is inside the Single Product block and the Add to Cart button
-	 * is clicked.
-	 *
-	 * @return void
-	 */
-	protected function initialize() {
-		parent::initialize();
-		// Scope the excecution of this hook to be only when the add to cart form is submitted.
-		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
-			add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'add_to_cart_redirect_filter' ), 10, 1 );
-		}
-	}
-
-	/**
 	 * Get the block's attributes.
 	 *
 	 * @param array $attributes Block attributes. Default empty array.
@@ -144,6 +125,8 @@ class AddToCartForm extends AbstractBlock {
 			return '';
 		}
 
+		$is_descendent_of_single_product_block = is_null( $product ) || $post_id !== $product->get_id();
+
 		$previous_product = $product;
 		$product          = wc_get_product( $post_id );
 		if ( ! $product instanceof \WC_Product ) {
@@ -154,6 +137,10 @@ class AddToCartForm extends AbstractBlock {
 
 		$is_external_product_with_url = $product instanceof \WC_Product_External && $product->get_product_url();
 		$is_stepper_style             = 'stepper' === $attributes['quantitySelectorStyle'] && ! $product->is_sold_individually() && Features::is_enabled( 'add-to-cart-with-options-stepper-layout' );
+
+		if ( $is_descendent_of_single_product_block ) {
+			add_filter( 'woocommerce_add_to_cart_form_action', array( $this, 'add_to_cart_form_action' ), 10 );
+		}
 
 		ob_start();
 
@@ -166,6 +153,10 @@ class AddToCartForm extends AbstractBlock {
 
 		$product_html = ob_get_clean();
 
+		if ( $is_descendent_of_single_product_block ) {
+			remove_filter( 'woocommerce_add_to_cart_form_action', array( $this, 'add_to_cart_form_action' ), 10 );
+		}
+
 		if ( ! $product_html ) {
 			$product = $previous_product;
 
@@ -174,9 +165,7 @@ class AddToCartForm extends AbstractBlock {
 		$product_name = $product->get_name();
 		$product_html = $is_stepper_style ? $this->add_steppers( $product_html, $product_name ) : $product_html;
 
-		$parsed_attributes                     = $this->parse_attributes( $attributes );
-		$is_descendent_of_single_product_block = is_null( $previous_product ) || $post_id !== $previous_product->get_id();
-
+		$parsed_attributes  = $this->parse_attributes( $attributes );
 		$product_html       = $is_stepper_style ? $this->add_stepper_classes_to_add_to_cart_form_input( $product_html ) : $product_html;
 		$classes_and_styles = StyleAttributesUtils::get_classes_and_styles_by_attributes( $attributes, array(), array( 'extra_classes' ) );
 
@@ -219,16 +208,12 @@ class AddToCartForm extends AbstractBlock {
 	}
 
 	/**
-	 * Hooks into the `woocommerce_add_to_cart_redirect` filter to redirect to
-	 * the request referer when the add to cart return to url is not set.
+	 * Use current url as the add to cart form action.
 	 *
-	 * @param string $url The URL to redirect to after the product is added to the cart.
-	 * @return string The filtered redirect URL.
+	 * @return string The current URL.
 	 */
-	public function add_to_cart_redirect_filter( $url ) {
-		if ( $url || 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
-			return $url;
-		}
-		return wp_validate_redirect( wp_get_referer(), $url );
+	public function add_to_cart_form_action() {
+		global $wp;
+		return home_url( add_query_arg( $_GET, $wp->request ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 }
