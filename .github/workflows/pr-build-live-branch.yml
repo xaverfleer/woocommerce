@@ -12,6 +12,7 @@ on:
             - '!packages/php/blueprint/**'
             - 'tools/**'
             - '**/changelog/**'
+            - 'changelog.txt'
             - '**/tests/**'
             - '**/*.md'
             - '.husky/**'
