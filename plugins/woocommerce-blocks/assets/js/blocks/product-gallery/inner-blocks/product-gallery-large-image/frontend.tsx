@@ -30,13 +30,18 @@ const productGalleryLargeImage = {
 	state: {
 		get styles() {
 			const { styles } = getContext();
-			return Object.entries( styles ?? [] ).reduce(
-				( acc, [ key, value ] ) => {
-					const style = `${ key }:${ value };`;
-					return acc.length > 0 ? `${ acc } ${ style }` : style;
-				},
-				''
-			);
+			const { isSelected } = state;
+			return isSelected
+				? Object.entries( styles ?? [] ).reduce(
+						( acc, [ key, value ] ) => {
+							const style = `${ key }:${ value };`;
+							return acc.length > 0
+								? `${ acc } ${ style }`
+								: style;
+						},
+						''
+				  )
+				: '';
 		},
 	},
 	actions: {
@@ -77,12 +82,14 @@ const productGalleryLargeImage = {
 			}
 
 			const { ref } = getElement();
-			// Scroll to the selected image with a smooth animation.
-			ref.scrollIntoView( {
-				behavior: 'smooth',
-				block: 'nearest',
-				inline: 'center',
-			} );
+			if ( ref ) {
+				// Scroll to the selected image with a smooth animation.
+				ref.scrollIntoView( {
+					behavior: 'smooth',
+					block: 'nearest',
+					inline: 'center',
+				} );
+			}
 		},
 	},
 };

@@ -40,24 +40,9 @@ const productGallery = {
 			const { selectedImageNumber, imageIds, imageId } = getContext();
 			return selectedImageNumber === imageIds.indexOf( imageId ) + 1;
 		},
-		get isDialogOpen() {
-			return getContext().isDialogOpen;
-		},
-		get disableLeft() {
-			return getContext().disableLeft;
-		},
-		get disableRight() {
-			return getContext().disableRight;
-		},
 		get imageIndex(): number {
 			const { imageIds, imageId } = getContext();
 			return imageIds.indexOf( imageId );
-		},
-		get imageIds() {
-			return getContext().imageIds;
-		},
-		get selectedImageNumber() {
-			return getContext().selectedImageNumber;
 		},
 		get thumbnailTabIndex(): string {
 			return state.isSelected ? '0' : '-1';
@@ -87,7 +72,7 @@ const productGallery = {
 			if ( event ) {
 				event.stopPropagation();
 			}
-			const { imageIds, selectedImageNumber } = state;
+			const { selectedImageNumber, imageIds } = getContext();
 			const newImageNumber = Math.min(
 				imageIds.length,
 				selectedImageNumber + 1
@@ -98,7 +83,7 @@ const productGallery = {
 			if ( event ) {
 				event.stopPropagation();
 			}
-			const { selectedImageNumber } = state;
+			const { selectedImageNumber } = getContext();
 			const newImageNumber = Math.max( 1, selectedImageNumber - 1 );
 			actions.selectImage( newImageNumber );
 		},
@@ -266,7 +251,7 @@ const productGallery = {
 			};
 		},
 		dialogStateChange: () => {
-			const { isDialogOpen, selectedImageNumber } = state;
+			const { selectedImageNumber, isDialogOpen } = getContext();
 			const { ref: dialogRef } = getElement() || {};
 
 			if ( isDialogOpen && dialogRef instanceof HTMLElement ) {

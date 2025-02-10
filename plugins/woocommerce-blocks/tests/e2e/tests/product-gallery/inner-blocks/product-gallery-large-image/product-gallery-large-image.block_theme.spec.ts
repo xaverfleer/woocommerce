@@ -90,21 +90,42 @@ test.describe( `${ blockData.name }`, () => {
 				page: 'frontend',
 			} );
 
-			// img[style] is the selector because the style attribute is Interactivity API.
-			const imgElement = blockFrontend.locator( 'img' ).first();
-			const style = await imgElement.evaluate( ( el ) => el.style );
+			const selectedImage = blockFrontend.locator( 'img' ).first();
 
-			expect( style.transform ).toBe( 'scale(1)' );
+			await test.step( 'for selected image', async () => {
+				// img[style] is the selector because the style attribute is Interactivity API.
 
-			await imgElement.hover();
+				const style = await selectedImage.evaluate(
+					( el ) => el.style
+				);
 
-			const styleOnHover = await imgElement.evaluate(
-				( el ) => el.style
-			);
+				expect( style.transform ).toBe( 'scale(1)' );
 
-			expect( styleOnHover.transform ).toBe( 'scale(1.3)' );
+				await selectedImage.hover();
+
+				const styleOnHover = await selectedImage.evaluate(
+					( el ) => el.style
+				);
+
+				expect( styleOnHover.transform ).toBe( 'scale(1.3)' );
+			} );
+
+			await test.step( 'styles are not applied to other images', async () => {
+				// img[style] is the selector because the style attribute is Interactivity API.
+				const hiddenImage = blockFrontend.locator( 'img' ).nth( 1 );
+				const style = await hiddenImage.evaluate( ( el ) => el.style );
+
+				expect( style.transform ).toBe( '' );
+
+				await selectedImage.hover();
+
+				const styleOnHover = await hiddenImage.evaluate(
+					( el ) => el.style
+				);
+
+				expect( styleOnHover.transform ).toBe( '' );
+			} );
 		} );
-
 		test( 'should not work on frontend when is disabled', async ( {
 			pageObject,
 			editor,
