@@ -396,7 +396,9 @@ class WC_Brands {
 	public function show_brand() {
 		global $post;
 
-		if ( is_singular( 'product' ) ) {
+		$has_block_template = apply_filters( 'woocommerce_has_block_template', false, 'taxonomy-product_brand' ); // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+
+		if ( is_singular( 'product' ) && ! $has_block_template ) {
 			$terms       = get_the_terms( $post->ID, 'product_brand' );
 			$brand_count = is_array( $terms ) ? count( $terms ) : 0;
 
@@ -404,7 +406,18 @@ class WC_Brands {
 			$labels   = $taxonomy->labels;
 
 			/* translators: %s - Label name */
-			echo wc_get_brands( $post->ID, ', ', ' <span class="posted_in">' . sprintf( _n( '%s: ', '%s: ', $brand_count, 'woocommerce' ), $labels->singular_name, $labels->name ), '</span>' ); // phpcs:ignore WordPress.Security.EscapeOutput
+			$brand_output = wc_get_brands( $post->ID, ', ', ' <span class="posted_in">' . sprintf( _n( '%s: ', '%s: ', $brand_count, 'woocommerce' ), $labels->singular_name, $labels->name ), '</span>' );
+
+			/**
+			 * Filter the brand output in product meta.
+			 *
+			 * @since 9.8.0
+			 *
+			 * @param string $brand_output The HTML output for brands.
+			 * @param array  $terms        Array of brand term objects.
+			 * @param int    $post_id      The product ID.
+			 */
+			echo apply_filters( 'woocommerce_product_brands_output', $brand_output, $terms, $post->ID ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
 	}
 
