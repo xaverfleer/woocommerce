@@ -812,7 +812,7 @@ class PaymentProviders {
 					ExtensionSuggestions::ANTOM,
 					ExtensionSuggestions::MERCADO_PAGO,
 					ExtensionSuggestions::AMAZON_PAY,
-					ExtensionSuggestions::SQUARE_IN_PERSON,
+					ExtensionSuggestions::SQUARE,
 					ExtensionSuggestions::PAYONEER,
 				),
 				true
