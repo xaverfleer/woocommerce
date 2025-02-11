@@ -10,8 +10,7 @@ if ( ! process.env.BASE_URL ) {
 	process.env.BASE_URL = 'http://localhost:8086';
 }
 
-const { ALLURE_RESULTS_DIR, BASE_URL, CI, E2E_MAX_FAILURES, REPEAT_EACH } =
-	process.env;
+const { BASE_URL, CI, E2E_MAX_FAILURES, REPEAT_EACH } = process.env;
 
 export const TESTS_ROOT_PATH = __dirname;
 export const TESTS_RESULTS_PATH = `${ TESTS_ROOT_PATH }/test-results`;
@@ -25,9 +24,7 @@ const reporter = [
 	[
 		'allure-playwright',
 		{
-			outputFolder:
-				ALLURE_RESULTS_DIR ??
-				`${ TESTS_ROOT_PATH }/test-results/allure-results`,
+			resultsDir: `${ TESTS_ROOT_PATH }/test-results/allure-results`,
 			detail: true,
 			suiteTitle: true,
 		},
