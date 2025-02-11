@@ -1148,6 +1148,9 @@ class WC_Cart extends WC_Legacy_Cart {
 				)
 			) {
 				$product = wc_get_product( $product_id );
+				if ( ! ( $product instanceof WC_Product ) ) {
+					throw new Exception( __( 'The selected product is invalid.', 'woocommerce' ) );
+				}
 
 				/* translators: 1: product link, 2: product name */
 				throw new Exception( sprintf( __( 'The selected product isn\'t a variation of %2$s, please choose product options by visiting <a href="%1$s" title="%2$s">%2$s</a>.', 'woocommerce' ), esc_url( $product->get_permalink() ), esc_html( $product->get_name() ) ) );

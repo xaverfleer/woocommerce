@@ -97,6 +97,37 @@ class WC_Cart_Test extends \WC_Unit_Test_Case {
 	}
 
 	/**
+	 * @testdox should throw a notice to the cart if using an invalid product_id.
+	 */
+	public function test_add_variation_to_the_cart_invalid_product() {
+		WC()->cart->empty_cart();
+		WC()->session->set( 'wc_notices', null );
+
+		$single_product = WC_Helper_Product::create_simple_product();
+
+		// Add variation using parent id.
+		WC()->cart->add_to_cart(
+			-1,
+			1,
+			$single_product->get_id()
+		);
+		$notices = WC()->session->get( 'wc_notices', array() );
+
+		// Check for cart contents.
+		$this->assertCount( 0, WC()->cart->get_cart_contents() );
+		$this->assertEquals( 0, WC()->cart->get_cart_contents_count() );
+
+		$this->assertArrayHasKey( 'error', $notices );
+		$this->assertCount( 1, $notices['error'] );
+		$expected = sprintf( 'The selected product is invalid.' );
+		$this->assertEquals( $expected, $notices['error'][0]['notice'] );
+
+		// Reset cart.
+		WC()->cart->empty_cart();
+		WC()->customer->set_is_vat_exempt( false );
+	}
+
+	/**
 	 * @testdox variable product should not be added to the cart if variation_id=0.
 	 */
 	public function test_add_variation_to_the_cart_zero_variation_id() {
