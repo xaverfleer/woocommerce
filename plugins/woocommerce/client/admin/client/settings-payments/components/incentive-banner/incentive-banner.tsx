@@ -111,21 +111,27 @@ export const IncentiveBanner = ( {
 	return (
 		<Card className="woocommerce-incentive-banner" isRounded={ true }>
 			<div className="woocommerce-incentive-banner__content">
-				<img
-					src={
-						WC_ASSET_URL +
-						'images/settings-payments/incentives-illustration.svg'
-					}
-					alt={ __( 'Incentive illustration', 'woocommerce' ) }
-				/>
+				<div className={ 'woocommerce-incentive-banner__image' }>
+					<img
+						src={
+							WC_ASSET_URL +
+							'images/settings-payments/incentives-illustration.svg'
+						}
+						alt={ __( 'Incentive illustration', 'woocommerce' ) }
+					/>
+				</div>
 				<CardBody className="woocommerce-incentive-banner__body">
 					<StatusBadge
 						status="has_incentive"
 						message={ __( 'Limited time offer', 'woocommerce' ) }
 					/>
-					<h2>{ incentive.title }</h2>
-					<p>{ incentive.description }</p>
-					<p className={ 'woocommerce-incentive-banner__terms' }>
+
+					<div className={ 'woocommerce-incentive-banner__copy' }>
+						<h2>{ incentive.title }</h2>
+						<p>{ incentive.description }</p>
+					</div>
+
+					<div className={ 'woocommerce-incentive-banner__terms' }>
 						{ createInterpolateElement(
 							__(
 								'See <termsLink /> for details.',
@@ -147,24 +153,26 @@ export const IncentiveBanner = ( {
 								),
 							}
 						) }
-					</p>
+					</div>
 
-					<Button
-						variant={ 'primary' }
-						isBusy={ isSubmitted }
-						disabled={ isSubmitted }
-						onClick={ handleAccept }
-					>
-						{ incentive.cta_label }
-					</Button>
-					<Button
-						variant={ 'tertiary' }
-						isBusy={ isBusy }
-						disabled={ isBusy }
-						onClick={ handleDismiss }
-					>
-						{ __( 'Dismiss', 'woocommerce' ) }
-					</Button>
+					<div className={ 'woocommerce-incentive-banner__actions' }>
+						<Button
+							variant={ 'primary' }
+							isBusy={ isSubmitted }
+							disabled={ isSubmitted }
+							onClick={ handleAccept }
+						>
+							{ incentive.cta_label }
+						</Button>
+						<Button
+							variant={ 'tertiary' }
+							isBusy={ isBusy }
+							disabled={ isBusy }
+							onClick={ handleDismiss }
+						>
+							{ __( 'Dismiss', 'woocommerce' ) }
+						</Button>
+					</div>
 				</CardBody>
 			</div>
 		</Card>

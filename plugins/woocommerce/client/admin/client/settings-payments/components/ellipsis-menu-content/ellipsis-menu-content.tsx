@@ -173,40 +173,41 @@ export const EllipsisMenuContent = ( {
 			} );
 	};
 
+	// Filter links in accordance with the gateway state.
+	const contextLinks = links.filter( ( link: PaymentGatewayLink ) => {
+		switch ( link._type ) {
+			case 'pricing':
+				// Show pricing link for any state.
+				return true;
+			case 'terms':
+			case 'about':
+				// Show terms and about links for gateways that are not enabled yet.
+				return ! isEnabled;
+			case 'documentation':
+			case 'support':
+				// Show documentation and support links for gateways are enabled.
+				return isEnabled;
+			default:
+				return false;
+		}
+	} );
+
 	return (
 		<>
-			{ links
-				.filter( ( link: PaymentGatewayLink ) => {
-					switch ( link._type ) {
-						case 'pricing':
-							// show pricing link for any state
-							return true;
-						case 'terms':
-						case 'about':
-							// show terms and about links for gateways that are not enabled yet
-							return ! isEnabled;
-						case 'documentation':
-						case 'support':
-							// show documentation and support links for gateways are enabled
-							return isEnabled;
-						default:
-							return false;
-					}
-				} )
-				.map( ( link: PaymentGatewayLink ) => {
-					const displayName = typeToDisplayName[ link._type ];
-					return displayName ? (
-						<div
-							className="woocommerce-ellipsis-menu__content__item"
-							key={ link._type }
-						>
-							<Button target="_blank" href={ link.url }>
-								{ displayName }
-							</Button>
-						</div>
-					) : null;
-				} ) }
-			<CardDivider />
+			{ contextLinks.map( ( link: PaymentGatewayLink ) => {
+				const displayName = typeToDisplayName[ link._type ];
+				return displayName ? (
+					<div
+						className="woocommerce-ellipsis-menu__content__item"
+						key={ link._type }
+					>
+						<Button target="_blank" href={ link.url }>
+							{ displayName }
+						</Button>
+					</div>
+				) : null;
+			} ) }
+			{ !! contextLinks.length && <CardDivider /> }
 			{ isSuggestion && (
 				<div
 					className="woocommerce-ellipsis-menu__content__item"

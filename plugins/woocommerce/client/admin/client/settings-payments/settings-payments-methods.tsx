@@ -144,16 +144,16 @@ export const SettingsPaymentsMethods: React.FC<
 							)
 						) }
 					</div>
-					<Button
-						className="settings-payments-methods__show-more"
-						onClick={ () => {
-							setIsExpanded( ! isExpanded );
-						} }
-						tabIndex={ 0 }
-						aria-expanded={ isExpanded }
-					>
-						{ ! isExpanded &&
-							sprintf(
+					{ ! isExpanded && (
+						<Button
+							className="settings-payments-methods__show-more"
+							onClick={ () => {
+								setIsExpanded( ! isExpanded );
+							} }
+							tabIndex={ 0 }
+							aria-expanded={ isExpanded }
+						>
+							{ sprintf(
 								/* translators: %s: number of disabled payment methods */
 								__( 'Show more (%s)', 'woocommerce' ),
 								paymentMethods.filter(
@@ -161,8 +161,8 @@ export const SettingsPaymentsMethods: React.FC<
 										pm.enabled === false
 								).length ?? 0
 							) }
-						{ isExpanded && __( 'Show less', 'woocommerce' ) }
-					</Button>
+						</Button>
+					) }
 				</>
 			) }
 		</div>

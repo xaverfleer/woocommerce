@@ -58,7 +58,7 @@ export const WooPaymentsResetAccountModal = ( {
 									{ sprintf(
 										/* translators: %s: plugin name */
 										__(
-											'When you reset your test account, all data — including your %s account details, test transactions, and payouts history — will be lost. This action cannot be undone, but you can create a new test account at any time.',
+											'When you reset your test account, all payment data — including your %s account details, test transactions, and payouts history — will be lost. Your order history will remain. This action cannot be undone, but you can create a new test account at any time.',
 											'woocommerce'
 										),
 										'WooPayments'
