@@ -1,8 +1,8 @@
 const { test, expect, request } = require( '@playwright/test' );
 const { tags } = require( '../../fixtures/fixtures' );
 const { setOption } = require( '../../utils/options' );
-const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
 const { setComingSoon } = require( '../../utils/coming-soon' );
+const { ADMIN_STATE_PATH } = require( '../../playwright.config' );
 
 const getPluginLocator = ( page, slug ) => {
 	return page.locator(
@@ -11,6 +11,10 @@ const getPluginLocator = ( page, slug ) => {
 };
 
 test.use( { storageState: ADMIN_STATE_PATH } );
+
+test.afterAll( async ( { baseURL } ) => {
+	await setComingSoon( { baseURL, enabled: 'no' } );
+} );
 
 test.describe(
 	'Store owner can complete the core profiler',
@@ -573,7 +577,3 @@ test.describe(
 		} );
 	}
 );
-
-test.afterAll( async ( { baseURL } ) => {
-	await setComingSoon( { baseURL, enabled: 'no' } );
-} );
