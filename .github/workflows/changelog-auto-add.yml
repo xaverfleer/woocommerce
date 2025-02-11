@@ -30,8 +30,13 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version-file: '.nvmrc'
+
             - name: Setup PNPM
-              uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d
+              uses: pnpm/action-setup@v4
 
             - name: Generate Changelog File
               env:
