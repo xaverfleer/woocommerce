@@ -277,6 +277,7 @@ export const fileUploadMachine = setup( {
 								event.output.length
 							) {
 								return {
+									name: 'BlueprintImportError',
 									message: event.output
 										.map( ( item ) => {
 											const step = `step: ${ item.step }`;
@@ -333,7 +334,7 @@ export const BlueprintUploadDropzone = () => {
 						} }
 					>
 						<div className="blueprint-upload-dropzone">
-							<Icon icon={ upload } alt="Upload" />
+							<Icon icon={ upload } />
 							<p className="blueprint-upload-dropzone-text">
 								{ __( 'Drag and drop or ', 'woocommerce' ) }
 								<span>

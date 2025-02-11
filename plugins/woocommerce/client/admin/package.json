@@ -85,8 +85,8 @@
 		"clsx": "^2.1.1",
 		"core-js": "^3.34.0",
 		"debug": "^4.3.4",
-		"downshift": "^9.0.8",
 		"dompurify": "^2.5.7",
+		"downshift": "^9.0.8",
 		"github-label-sync": "^2.3.1",
 		"grapheme-splitter": "^1.0.4",
 		"gridicons": "^3.4.2",
@@ -138,8 +138,8 @@
 		"@types/react-transition-group": "^4.4.10",
 		"@types/testing-library__jest-dom": "^5.14.9",
 		"@types/tinymce": "^4.6.9",
-		"@types/wordpress__blocks": "12.5.16",
 		"@types/wordpress__block-editor": "11.5.16",
+		"@types/wordpress__blocks": "12.5.16",
 		"@types/wordpress__media-utils": "4.14.4",
 		"@types/wordpress__notices": "3.3.0",
 		"@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -198,6 +198,7 @@
 		"eslint-plugin-import": "^2.29.0",
 		"eslint-plugin-react": "^7.33.2",
 		"expose-loader": "^3.1.0",
+		"fork-ts-checker-webpack-plugin": "9.0.x",
 		"fs-extra": "11.1.1",
 		"jest": "27.5.x",
 		"jest-environment-jsdom": "27.5.x",
@@ -299,16 +300,6 @@
 		},
 		"watch:build:project:bundle": {
 			"command": "webpack --watch",
-			"env": {
-				"DISABLE_TYPESCRIPT_CHECKING": {
-					"external": true,
-					"default": "true"
-				},
-				"HIDE_TYPESCRIPT_WARNINGS": {
-					"external": true,
-					"default": "false"
-				}
-			},
 			"service": true
 		},
 		"dependencyOutputs": {
