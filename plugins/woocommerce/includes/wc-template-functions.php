@@ -4146,6 +4146,15 @@ function wc_get_cart_undo_url( $cart_item_key ) {
  * @since 3.5.0
  */
 function woocommerce_output_all_notices() {
+	if ( ! function_exists( 'wc_print_notices' ) ) {
+		wc_doing_it_wrong(
+			__FUNCTION__,
+			'Function should only be used during frontend requests.',
+			'9.8.0'
+		);
+		return;
+	}
+
 	echo '<div class="woocommerce-notices-wrapper">';
 	wc_print_notices();
 	echo '</div>';
