@@ -114,12 +114,15 @@ export function* isJetpackConnected() {
 
 export function* getJetpackConnectionData() {
 	yield setIsRequesting( 'getJetpackConnectionData', true );
-
 	try {
-		yield checkUserCapability( 'manage_woocommerce' );
+		const isConnected = yield resolveSelect(
+			STORE_NAME,
+			'isJetpackConnected'
+		);
+		// See API side permission check here: https://github.com/Automattic/jetpack-connection/blob/trunk/src/class-manager.php#L1560-L1568.
+		yield checkUserCapability( isConnected ? 'read' : 'manage_options' );
 
 		const url = JETPACK_NAMESPACE + '/connection/data';
-
 		const results: JetpackConnectionDataResponse = yield apiFetch( {
 			path: url,
 			method: 'GET',
