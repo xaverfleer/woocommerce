@@ -1,6 +1,6 @@
 const { test, expect } = require( '@playwright/test' );
-const { logIn } = require( '../utils/login' );
-const { admin, customer } = require( '../test-data/data' );
+const { logIn } = require( '../../utils/login' );
+const { admin, customer } = require( '../../test-data/data' );
 
 test( 'Load the home page', async ( { page } ) => {
 	await page.goto( './' );
