@@ -108,5 +108,11 @@ setup( 'disable coming soon', async ( { baseURL } ) => {
 setup( 'determine if multisite', async ( { api } ) => {
 	const response = await api.get( 'system_status' );
 	const { environment } = response.data;
-	process.env.IS_MULTISITE = environment.wp_multisite;
+
+	if ( environment.wp_multisite === false ) {
+		delete process.env.IS_MULTISITE;
+	} else {
+		process.env.IS_MULTISITE = environment.wp_multisite;
+		console.log( `IS_MULTISITE: ${ process.env.IS_MULTISITE }` );
+	}
 } );
