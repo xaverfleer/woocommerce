@@ -1079,6 +1079,7 @@ class WC_Install {
 			'wc-admin-set-up-additional-payment-types',
 			'wc-admin-deactivate-plugin',
 			'wc-admin-complete-store-details',
+			'wc-admin-choosing-a-theme',
 		);
 
 		/**
