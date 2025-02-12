@@ -60,8 +60,11 @@ const mockSettingsPages = {
 				},
 			},
 			is_modern: false,
+			start: null,
+			end: null,
 		},
 	},
+	start: null,
 };
 
 describe( 'route.tsx', () => {
@@ -140,8 +143,11 @@ describe( 'route.tsx', () => {
 								slug: 'modern',
 								sections: {},
 								is_modern: true,
+								start: null,
+								end: null,
 							},
 						},
+						start: null,
 					},
 				},
 			};

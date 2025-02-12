@@ -98,7 +98,11 @@ class Transformer {
 	 * @param array $setting Setting to process.
 	 * @param array $transformed_settings Transformed settings array.
 	 */
-	private function process_setting( array $setting, array &$transformed_settings ): void {
+	private function process_setting( ?array $setting, array &$transformed_settings ): void {
+		if ( ! isset( $setting ) ) {
+			return;
+		}
+
 		$type = $setting['type'] ?? '';
 
 		if ( $this->current_checkbox_group && 'checkbox' !== $type ) {
