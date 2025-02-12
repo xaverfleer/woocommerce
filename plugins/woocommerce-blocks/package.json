@@ -48,10 +48,8 @@
 		"changelog": "XDEBUG_MODE=off composer install --quiet && composer exec -- changelogger",
 		"build": "pnpm --if-present --workspace-concurrency=Infinity --stream --filter=\"$npm_package_name...\" '/^build:project:.*$/'",
 		"build:project": "pnpm --if-present '/^build:project:.*$/'",
-		"build:project:validate-blocks-manifests": "wireit",
 		"build:project:bundle": "wireit",
-		"build:project:blocks-json-to-php": "wireit",
-		"build:check-assets": "rimraf build/* && cross-env ASSET_CHECK=true BABEL_ENV=default NODE_ENV=production webpack",
+		"build:check-assets": "npx ajv validate -s bin/block.json-validation-schema.json -d assets/js/**/block.json && rimraf build/* && cross-env ASSET_CHECK=true BABEL_ENV=default NODE_ENV=production webpack",
 		"prebuild:docs": "rimraf docs/extensibility/actions.md & rimraf docs/extensibility/filters.md",
 		"build:docs": "./vendor/bin/wp-hooks-generator --input=src --output=bin/hook-docs/data && node ./bin/hook-docs && pnpm build:docs:block-references",
 		"build:docs:block-references": "node ./bin/gen-block-list-doc.js",
@@ -104,8 +102,7 @@
 		"wp-env:config": "echo 'wp-env:config is no more. Use env:start instead.'",
 		"watch:build": "pnpm --if-present --workspace-concurrency=Infinity --filter=\"$npm_package_name...\" --parallel '/^watch:build:project:.*$/'",
 		"watch:build:project": "pnpm --if-present run '/^watch:build:project:.*$/'",
-		"watch:build:project:bundle": "wireit",
-		"watch:build:project:blocks-json-to-php": "pnpm run build:project:blocks-json-to-php --watch"
+		"watch:build:project:bundle": "wireit"
 	},
 	"devDependencies": {
 		"@automattic/color-studio": "2.5.0",
@@ -397,20 +394,11 @@
 			],
 			"output": [
 				"build",
-				"blocks.ini",
-				"!build/blocks-json.php"
+				"blocks.ini"
 			],
 			"dependencies": [
 				"dependencyOutputs"
 			]
-		},
-		"build:project:validate-blocks-manifests": {
-			"command": "npx ajv validate -s bin/block.json-validation-schema.json -d assets/js/**/block.json",
-			"clean": "if-file-deleted",
-			"files": [
-				"assets/js/**/block.json"
-			],
-			"output": []
 		},
 		"build:storybook": {
 			"command": "storybook build  -c ./storybook -o ./storybook/dist",
@@ -438,20 +426,6 @@
 		"watch:build:storybook": {
 			"command": "storybook dev  -c ./storybook -p 6006 --ci",
 			"service": true
-		},
-		"build:project:blocks-json-to-php": {
-			"command": "wp-scripts build-blocks-manifest --input=build --output=build/blocks-json.php",
-			"dependencies": [
-				"build:project:bundle",
-				"dependencyOutputs"
-			],
-			"files": [
-				"assets/js/blocks/**/block.json",
-				"build/**/block.json"
-			],
-			"output": [
-				"build/blocks-json.php"
-			]
 		},
 		"dependencyOutputs": {
 			"allowUsuallyExcludedPaths": true,
