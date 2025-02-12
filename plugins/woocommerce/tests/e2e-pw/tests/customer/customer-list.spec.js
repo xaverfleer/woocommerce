@@ -153,7 +153,9 @@ test.describe( 'Merchant > Customer List', () => {
 					page.getByRole( 'link', { name: customer.email } )
 				).toBeVisible();
 				await expect(
-					page.getByText( `${ x }customer` )
+					page
+						.getByRole( 'complementary' )
+						.getByText( `${ x }customer` )
 				).toBeVisible();
 				x++;
 			}
