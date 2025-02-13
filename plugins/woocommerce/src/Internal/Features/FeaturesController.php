@@ -20,7 +20,10 @@ defined( 'ABSPATH' ) || exit;
  * provides also a mechanism for WooCommerce plugins to declare that they are compatible
  * (or incompatible) with a given feature.
  *
- * Features should not be enabled, or disabled, before init.
+ * Important: some of the features are defined from inside the 'woocommerce_register_feature_definitions' hook.
+ * This hook is fired from inside 'init'; therefore, features that need to be
+ * queried, enabled, or disabled before 'init' (e.g. during WP CLI initialization)
+ * must be hardcoded in the $legacy_features array defined inside get_feature_definitions.
  */
 class FeaturesController {
 
@@ -87,10 +90,23 @@ class FeaturesController {
 	private $plugins_excluded_from_compatibility_ui;
 
 	/**
+	 * Flag indicating if additional features have been registered already.
+	 *
+	 * @var bool
+	 */
+	private bool $registered_additional_features = false;
+
+	/**
 	 * Creates a new instance of the class.
 	 */
 	public function __construct() {
-		add_filter( 'init', array( $this, 'start_listening_for_option_changes' ), 10, 0 );
+		if ( did_action( 'init' ) ) {
+			// Needed for unit tests, where 'init' will have been fired already at this point.
+			$this->register_additional_features();
+		} else {
+			add_filter( 'init', array( $this, 'start_listening_for_option_changes' ), 10, 0 );
+			add_filter( 'init', array( $this, 'register_additional_features' ), 1, 0 ); // This needs to have a higher $priority than the 'init' hooked in class-woocommerce.
+		}
 		add_filter( 'woocommerce_get_sections_advanced', array( $this, 'add_features_section' ), 10, 1 );
 		add_filter( 'woocommerce_get_settings_advanced', array( $this, 'add_feature_settings' ), 10, 2 );
 		add_filter( 'deactivated_plugin', array( $this, 'handle_plugin_deactivation' ), 10, 1 );
@@ -359,24 +375,54 @@ class FeaturesController {
 				$this->add_feature_definition( $slug, $definition['name'], $definition );
 			}
 
-			/**
-			 * The action for registering features.
-			 *
-			 * @since 8.3.0
-			 *
-			 * @param FeaturesController $features_controller The instance of FeaturesController.
-			 */
-			do_action( 'woocommerce_register_feature_definitions', $this );
+			$this->init_compatibility_info_by_feature();
+		}
 
-			foreach ( array_keys( $this->features ) as $feature_id ) {
+		return $this->features;
+	}
+
+	/**
+	 * Initialize the compatibility_info_by_feature property after all the features have been added.
+	 */
+	private function init_compatibility_info_by_feature() {
+		foreach ( array_keys( $this->features ) as $feature_id ) {
+			if ( ! isset( $this->compatibility_info_by_feature[ $feature_id ] ) ) {
 				$this->compatibility_info_by_feature[ $feature_id ] = array(
 					'compatible'   => array(),
 					'incompatible' => array(),
 				);
 			}
 		}
+	}
 
-		return $this->features;
+	/**
+	 * Function to trigger the 'woocommerce_register_feature_definitions' hook.
+	 *
+	 * This function must execute immediately before the 'before_woocommerce_init'
+	 * action is fired, so that feature compatibility declarations happening
+	 * in that action find all the features properly declared already.
+	 *
+	 * @internal
+	 */
+	public function register_additional_features() {
+		if ( $this->registered_additional_features ) {
+			return;
+		}
+
+		$this->get_feature_definitions(); // To populate $this->features if needed.
+
+		/**
+		 * The action for registering features.
+		 *
+		 * @since 8.3.0
+		 *
+		 * @param FeaturesController $features_controller The instance of FeaturesController.
+		 */
+		do_action( 'woocommerce_register_feature_definitions', $this );
+
+		$this->init_compatibility_info_by_feature();
+
+		$this->registered_additional_features = true;
 	}
 
 	/**
