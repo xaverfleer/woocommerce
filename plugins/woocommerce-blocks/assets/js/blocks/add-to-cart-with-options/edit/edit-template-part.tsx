@@ -77,6 +77,13 @@ export const AddToCartWithOptionsEditTemplatePart = ( {
 			} = select( coreStore );
 
 			const currentTheme = getCurrentTheme()?.stylesheet;
+
+			if ( ! currentTheme ) {
+				return {
+					templatePartId: null,
+				};
+			}
+
 			const templatePartSlug = `${ productType }-product-add-to-cart-with-options`;
 			const themeTemplatePartId = `${ currentTheme }//${ templatePartSlug }`;
 			const wooCommerceTemplatePartId = `woocommerce/woocommerce//${ templatePartSlug }`;
@@ -111,6 +118,14 @@ export const AddToCartWithOptionsEditTemplatePart = ( {
 	);
 
 	const blockProps = useBlockProps();
+
+	if ( ! templatePartId ) {
+		return (
+			<div { ...blockProps }>
+				<Spinner />
+			</div>
+		);
+	}
 
 	return (
 		<TemplatePartInnerBlocks
