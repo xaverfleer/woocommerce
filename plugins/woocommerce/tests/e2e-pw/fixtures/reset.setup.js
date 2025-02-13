@@ -2,9 +2,6 @@
  * Internal dependencies
  */
 import { test as setup } from './fixtures';
-import { ADMIN_STATE_PATH } from '../playwright.config';
-
-setup.use( { storageState: ADMIN_STATE_PATH } );
 
 setup( 'reset site', async ( { baseURL, wpApi } ) => {
 	setup.skip(
