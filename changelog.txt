@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 9.6.2 2025-02-13 =
+
+**WooCommerce**
+
+* Fix - Return secondary color CSS variable to its original color [#55366](https://github.com/woocommerce/woocommerce/pull/55366)
+
+
 = 9.6.1 2025-02-04 =
 
 **WooCommerce**
