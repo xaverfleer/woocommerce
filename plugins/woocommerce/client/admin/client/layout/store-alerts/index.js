@@ -17,7 +17,7 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import moment from 'moment';
 import { Icon, chevronLeft, chevronRight, close } from '@wordpress/icons';
 import {
-	NOTES_STORE_NAME,
+	notesStore,
 	QUERY_DEFAULTS,
 	OPTIONS_STORE_NAME,
 	useUserPreferences,
@@ -63,7 +63,7 @@ export const StoreAlerts = () => {
 		isLoading,
 		defaultHomescreenLayout,
 	} = useSelect( ( select ) => {
-		const { getNotes, hasFinishedResolution } = select( NOTES_STORE_NAME );
+		const { getNotes, hasFinishedResolution } = select( notesStore );
 		const { getOption } = select( OPTIONS_STORE_NAME );
 
 		return {
@@ -76,7 +76,7 @@ export const StoreAlerts = () => {
 	} );
 
 	const { triggerNoteAction, updateNote, removeNote } =
-		useDispatch( NOTES_STORE_NAME );
+		useDispatch( notesStore );
 	const { createNotice } = useDispatch( 'core/notices' );
 
 	const userPrefs = useUserPreferences();

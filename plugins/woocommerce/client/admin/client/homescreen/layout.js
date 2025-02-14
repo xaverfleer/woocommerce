@@ -14,7 +14,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
 	useUserPreferences,
-	NOTES_STORE_NAME,
+	notesStore,
 	onboardingStore,
 	OPTIONS_STORE_NAME,
 } from '@woocommerce/data';
@@ -192,7 +192,7 @@ Layout.propTypes = {
 
 export default compose(
 	withSelect( ( select ) => {
-		const { isNotesRequesting } = select( NOTES_STORE_NAME );
+		const { isNotesRequesting } = select( notesStore );
 		const { getOption } = select( OPTIONS_STORE_NAME );
 		const defaultHomescreenLayout =
 			getOption( 'woocommerce_default_homepage_layout' ) ||
