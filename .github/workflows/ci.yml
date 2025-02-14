@@ -5,7 +5,10 @@ on:
     paths-ignore:
       - 'docs/**'
       - '**/changelog/**'
+      - '.cursor/**'
       - '**/*.md'
+      - 'changelog.txt'
+      - '.gitignore'
     branches:
       - 'trunk'
       - 'release/*'
@@ -43,7 +46,7 @@ jobs:
         with:
           filters: |
             needs-code-validation:
-              - '!((**/*.md)|(**/changelog/*))'
+              - '!((**/*.md)|(**/changelog/*)|(.cursor/**)|(.gitignore))'
             needs-changelog-validation:
               - '{packages,plugins}/*/!(changelog/**)/**'
             needs-markdown-validation:
