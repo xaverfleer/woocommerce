@@ -53,10 +53,12 @@ export { store as notesStore } from './notes';
 export { store as reviewsStore } from './reviews';
 export { store as shippingMethodsStore } from './shipping-methods';
 export { store as settingsStore } from './settings';
+export { store as ordersStore } from './orders';
 export { store as experimentalShippingZonesStore } from './shipping-zones';
 export { store as experimentalTaxClassesStore } from './tax-classes';
 export { store as pluginsStore } from './plugins';
 export { store as userStore } from './user';
+
 // Export hooks
 export { withSettingsHydration } from './settings/with-settings-hydration';
 export { withOnboardingHydration } from './onboarding/with-onboarding-hydration';
