@@ -24,7 +24,6 @@ import { shortcode, Icon } from '@wordpress/icons';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useState, createInterpolateElement } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
-import { woo } from '@woocommerce/icons';
 import { findBlock } from '@woocommerce/utils';
 
 /**
@@ -219,10 +218,7 @@ const Edit = ( { clientId, attributes }: BlockEditProps< Attributes > ) => {
 				</div>
 				<div className="wp-block-woocommerce-classic-shortcode__placeholder-copy">
 					<div className="wp-block-woocommerce-classic-shortcode__placeholder-copy__icon-container">
-						<span className="woo-icon-wrapper">
-							<Icon icon={ woo } />{ ' ' }
-							{ __( 'WooCommerce', 'woocommerce' ) }
-						</span>
+						<h1>{ __( 'WooCommerce', 'woocommerce' ) }</h1>
 						<span>{ placeholderTitle }</span>
 					</div>
 					<p>{ placeholderDescription }</p>

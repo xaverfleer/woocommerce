@@ -22,7 +22,6 @@ import { useDispatch, subscribe, useSelect, select } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { store as noticesStore } from '@wordpress/notices';
 import { useEntityRecord } from '@wordpress/core-data';
-import { woo } from '@woocommerce/icons';
 
 /**
  * Internal dependencies
@@ -248,10 +247,7 @@ const Edit = ( {
 				</div>
 				<div className="wp-block-woocommerce-classic-template__placeholder-copy">
 					<div className="wp-block-woocommerce-classic-template__placeholder-copy__icon-container">
-						<span className="woo-icon-wrapper">
-							<Icon icon={ woo } />{ ' ' }
-							{ __( 'WooCommerce', 'woocommerce' ) }
-						</span>
+						<h1>{ __( 'WooCommerce', 'woocommerce' ) }</h1>
 						<span>
 							{ __(
 								'Classic Template Placeholder',
