@@ -101,11 +101,103 @@ class AddToCartWithOptions extends AbstractBlock {
 				)
 			);
 
+			$hooks_before = '';
+			$hooks_after  = '';
+
+			/**
+			* Filter to disable the compatibility layer for the blockified templates.
+			*
+			* This hook allows to disable the compatibility layer for the blockified.
+			*
+			* @since 7.6.0
+			* @param boolean.
+			*/
+			$is_disabled_compatibility_layer = apply_filters( 'woocommerce_disable_compatibility_layer', false );
+
+			if ( ! $is_disabled_compatibility_layer ) {
+				ob_start();
+				if ( ProductType::SIMPLE === $product_type ) {
+					/**
+					 * Hook: woocommerce_before_add_to_cart_quantity.
+					 *
+					 * @since 2.7.0
+					 */
+					do_action( 'woocommerce_before_add_to_cart_quantity' );
+					/**
+					 * Hook: woocommerce_before_add_to_cart_button.
+					 *
+					 * @since 1.5.0
+					 */
+					do_action( 'woocommerce_before_add_to_cart_button' );
+				} elseif ( ProductType::EXTERNAL === $product_type ) {
+					/**
+					 * Hook: woocommerce_before_add_to_cart_button.
+					 *
+					 * @since 1.5.0
+					 */
+					do_action( 'woocommerce_before_add_to_cart_button' );
+				} elseif ( ProductType::GROUPED === $product_type ) {
+					/**
+					 * Hook: woocommerce_before_add_to_cart_button.
+					 *
+					 * @since 1.5.0
+					 */
+					do_action( 'woocommerce_before_add_to_cart_button' );
+				} elseif ( ProductType::VARIABLE === $product_type ) {
+					/**
+					 * Hook: woocommerce_before_variations_form.
+					 *
+					 * @since 2.4.0
+					 */
+					do_action( 'woocommerce_before_variations_form' );
+				}
+				$hooks_before = ob_get_clean();
+
+				ob_start();
+				if ( ProductType::SIMPLE === $product_type ) {
+					/**
+					 * Hook: woocommerce_after_add_to_cart_quantity.
+					 *
+					 * @since 2.7.0
+					 */
+					do_action( 'woocommerce_after_add_to_cart_quantity' );
+					/**
+					 * Hook: woocommerce_after_add_to_cart_button.
+					 *
+					 * @since 1.5.0
+					 */
+					do_action( 'woocommerce_after_add_to_cart_button' );
+				} elseif ( ProductType::EXTERNAL === $product_type ) {
+					/**
+					 * Hook: woocommerce_after_add_to_cart_button.
+					 *
+					 * @since 1.5.0
+					 */
+					do_action( 'woocommerce_after_add_to_cart_button' );
+				} elseif ( ProductType::GROUPED === $product_type ) {
+					/**
+					 * Hook: woocommerce_after_add_to_cart_button.
+					 *
+					 * @since 1.5.0
+					 */
+					do_action( 'woocommerce_after_add_to_cart_button' );
+				} elseif ( ProductType::VARIABLE === $product_type ) {
+					/**
+					 * Hook: woocommerce_after_variations_form.
+					 *
+					 * @since 2.4.0
+					 */
+					do_action( 'woocommerce_after_variations_form' );
+				}
+				$hooks_after = ob_get_clean();
+			}
+
 			$form_html = sprintf(
-				'<form %1$s %2$s>%3$s</form>',
+				'<form %1$s>%2$s%3$s%4$s</form>',
 				$wrapper_attributes,
-				'',
-				$template_part_contents
+				$hooks_before,
+				$template_part_contents,
+				$hooks_after,
 			);
 
 			$product = $previous_product;

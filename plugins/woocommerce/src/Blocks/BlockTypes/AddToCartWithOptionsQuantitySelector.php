@@ -128,15 +128,6 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 
 		ob_start();
 
-		/**
-		 * Hook: woocommerce_before_add_to_cart_quantity.
-		 *
-		 * Action that fires before the quantity input field is rendered.
-		 *
-		 * @since 2.7.0
-		 */
-		do_action( 'woocommerce_before_add_to_cart_quantity' );
-
 		woocommerce_quantity_input(
 			array(
 				/**
@@ -158,15 +149,6 @@ class AddToCartWithOptionsQuantitySelector extends AbstractBlock {
 				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			)
 		);
-
-		/**
-		 * Hook: woocommerce_after_add_to_cart_quantity.
-		 *
-		 * Action that fires after the quantity input field is rendered.
-		 *
-		 * @since 2.7.0
-		 */
-		do_action( 'woocommerce_after_add_to_cart_quantity' );
 
 		$product_html = ob_get_clean();
 
