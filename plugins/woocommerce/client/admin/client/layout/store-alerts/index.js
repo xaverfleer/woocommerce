@@ -20,7 +20,6 @@ import {
 	NOTES_STORE_NAME,
 	QUERY_DEFAULTS,
 	OPTIONS_STORE_NAME,
-	ONBOARDING_STORE_NAME,
 	useUserPreferences,
 } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
@@ -39,6 +38,7 @@ import StoreAlertsPlaceholder from './placeholder';
 import { getAdminSetting } from '~/utils/admin-settings';
 import { getScreenName } from '../../utils';
 import { hasTwoColumnLayout } from '../../homescreen/layout';
+import { isTaskListActive } from '../../hooks/use-tasklists-state';
 
 import './style.scss';
 
@@ -62,14 +62,9 @@ export const StoreAlerts = () => {
 		alerts = [],
 		isLoading,
 		defaultHomescreenLayout,
-		taskListComplete,
-		isTaskListHidden,
-		isLoadingTaskLists,
 	} = useSelect( ( select ) => {
 		const { getNotes, hasFinishedResolution } = select( NOTES_STORE_NAME );
 		const { getOption } = select( OPTIONS_STORE_NAME );
-		const { getTaskList, hasFinishedResolution: taskListFinishResolution } =
-			select( ONBOARDING_STORE_NAME );
 
 		return {
 			alerts: getUnactionedVisibleAlerts( getNotes( ALERTS_QUERY ) ),
@@ -77,9 +72,6 @@ export const StoreAlerts = () => {
 			defaultHomescreenLayout:
 				getOption( 'woocommerce_default_homepage_layout' ) ||
 				'single_column',
-			taskListComplete: getTaskList( 'setup' )?.isComplete,
-			isTaskListHidden: getTaskList( 'setup' )?.isHidden,
-			isLoadingTaskLists: ! taskListFinishResolution( 'getTaskLists' ),
 		};
 	} );
 
@@ -239,10 +231,6 @@ export const StoreAlerts = () => {
 		}
 	}
 
-	if ( isLoadingTaskLists ) {
-		return null;
-	}
-
 	const preloadAlertCount = getAdminSetting( 'alertCount', 0, ( count ) =>
 		parseInt( count, 10 )
 	);
@@ -253,8 +241,7 @@ export const StoreAlerts = () => {
 	const hasTwoColumns = hasTwoColumnLayout(
 		userPrefs.homepage_layout,
 		defaultHomescreenLayout,
-		taskListComplete,
-		isTaskListHidden
+		isTaskListActive( 'setup' )
 	);
 
 	if ( preloadAlertCount > 0 && isLoading ) {

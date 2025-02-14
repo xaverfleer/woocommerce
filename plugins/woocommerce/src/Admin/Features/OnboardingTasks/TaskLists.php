@@ -465,7 +465,8 @@ class TaskLists {
 	 * @return array
 	 */
 	public static function task_list_preloaded_settings( $settings ) {
-		$settings['visibleTaskListIds'] = array_keys( self::get_visible() );
+		$settings['visibleTaskListIds']   = array_keys( self::get_visible() );
+		$settings['completedTaskListIds'] = get_option( TaskList::COMPLETED_OPTION, array() );
 
 		return $settings;
 	}
