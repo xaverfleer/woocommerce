@@ -1212,6 +1212,31 @@ apply_filters( 'woocommerce_store_api_rate_limit_options', array $rate_limit_opt
 - [StoreApi/Utilities/RateLimits.php](../../../../../woocommerce/src/StoreApi/Utilities/RateLimits.php)
 
 ---
+
+## woocommerce_store_api_rate_limit_id
+
+
+Filters the identifier to group requests for rate limiting.
+
+```php
+apply_filters( 'woocommerce_store_api_rate_limit_id', string $identifier );
+```
+
+### Parameters
+
+| Argument    | Type   | Description                        |
+|-------------|--------|------------------------------------|
+| $identifier | string | Passed on identifier for fallback. |
+
+### Returns
+
+`string`
+
+### Source
+
+- [StoreApi/Authentication.php](../../../../../woocommerce/src/StoreApi/Authentication.php)
+
+---
 <!-- FEEDBACK -->
 
 ---

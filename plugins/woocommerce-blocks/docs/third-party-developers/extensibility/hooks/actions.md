@@ -740,7 +740,7 @@ This hook gives extensions the chance to add or update metadata on the $order. T
 Fires when the rate limit is exceeded.
 
 ```php
-do_action( 'woocommerce_store_api_rate_limit_exceeded', string $ip_address )
+do_action( 'woocommerce_store_api_rate_limit_exceeded', string $ip_address, string $action_id )
 ```
 
 ### Parameters
