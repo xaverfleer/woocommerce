@@ -54,7 +54,7 @@ export { store as reviewsStore } from './reviews';
 export { store as shippingMethodsStore } from './shipping-methods';
 export { store as settingsStore } from './settings';
 export { store as pluginsStore } from './plugins';
-
+export { store as userStore } from './user';
 // Export hooks
 export { withSettingsHydration } from './settings/with-settings-hydration';
 export { withOnboardingHydration } from './onboarding/with-onboarding-hydration';

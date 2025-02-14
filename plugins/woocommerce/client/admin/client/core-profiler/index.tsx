@@ -31,7 +31,7 @@ import {
 	GeolocationResponse,
 	pluginsStore,
 	settingsStore,
-	USER_STORE_NAME,
+	userStore,
 	WCUser,
 	ProfileItems,
 	CoreProfilerStep,
@@ -133,7 +133,7 @@ export type CoreProfilerStateMachineContext = {
 	onboardingProfile: OnboardingProfile;
 	jetpackAuthUrl?: string;
 	currentUserEmail: string | undefined;
-	currentUser?: WCUser< 'capabilities' >;
+	currentUser?: WCUser;
 };
 
 const getAllowTrackingOption = fromPromise( async () =>
@@ -256,18 +256,12 @@ const handleCoreProfilerCompletedSteps = assign( {
 } );
 
 const getCurrentUserEmail = fromPromise( async () => {
-	// @ts-expect-error TODO react-18-upgrade: getCurrentUser type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
-	const currentUser: WCUser< 'email' > = await resolveSelect(
-		USER_STORE_NAME
-	).getCurrentUser();
+	const currentUser = await resolveSelect( userStore ).getCurrentUser();
 	return currentUser?.email;
 } );
 
 const getCurrentUser = fromPromise( async () => {
-	// @ts-expect-error TODO react-18-upgrade: getCurrentUser type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
-	const currentUser: WCUser< 'capabilities' > = await resolveSelect(
-		USER_STORE_NAME
-	).getCurrentUser();
+	const currentUser = await resolveSelect( userStore ).getCurrentUser();
 	return currentUser;
 } );
 
@@ -275,7 +269,7 @@ const assignCurrentUser = assign( {
 	currentUser: ( {
 		event,
 	}: {
-		event: DoneActorEvent< WCUser< 'capabilities' > | undefined >;
+		event: DoneActorEvent< WCUser | undefined >;
 	} ) => {
 		if ( event.output ) {
 			return event.output;
@@ -1878,6 +1872,7 @@ export const CoreProfilerController = ( {
 				},
 				userHasNoInstallPluginsPermission: ( { context } ) => {
 					return (
+						// @ts-expect-error TODO: react-18-upgrade: This comparison appears to be unintentional because the types 'string | undefined' and 'boolean' have no overlap.ts(2367). Need to check if this is a valid comparison.
 						context?.currentUser?.capabilities.install_plugins !==
 						true
 					);

@@ -23,17 +23,20 @@ export function useMetaboxHiddenProduct() {
 
 	async function saveMetaboxhiddenProduct(
 		value: string[]
-	): Promise< WCUser< 'capabilities' > > {
+	): Promise< WCUser > {
 		try {
 			setIsSaving( true );
 
 			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			const { saveEntityRecord } = dispatch( coreStore );
-			const currentUser: WCUser< 'capabilities' > =
-				( await saveEntityRecord( 'root', 'user', {
+			const currentUser: WCUser = ( await saveEntityRecord(
+				'root',
+				'user',
+				{
 					id: user.id,
 					metaboxhidden_product: value,
-				} ) ) as never;
+				}
+			) ) as never;
 
 			return currentUser;
 		} finally {
