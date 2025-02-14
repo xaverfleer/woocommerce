@@ -112,7 +112,7 @@ This is used to retrieve the list of countries that will be shown in the Country
 
 This is used to retrieve the country that the store believes it is in. It makes an API call to the WordPress.com geolocation API, if permitted. Otherwise it will not be used.
 
-- `resolveSelect( PLUGINS_STORE_NAME ).isJetpackConnected()`
+- `resolveSelect( pluginsStore ).isJetpackConnected()`
 
 This is used to determine whether the store is connected to Jetpack.
 

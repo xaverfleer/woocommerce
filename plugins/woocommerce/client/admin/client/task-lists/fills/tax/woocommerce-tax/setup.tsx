@@ -7,7 +7,7 @@ import { useEffect, useState } from '@wordpress/element';
 import { Stepper } from '@woocommerce/components';
 import {
 	OPTIONS_STORE_NAME,
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	settingsStore,
 } from '@woocommerce/data';
 import { useSelect } from '@wordpress/data';
@@ -50,10 +50,9 @@ export const Setup: React.FC< SetupProps > = ( {
 	const { activePlugins, isResolving } = useSelect( ( select ) => {
 		const { getSettings } = select( settingsStore );
 		const { hasFinishedResolution } = select( OPTIONS_STORE_NAME );
-		const { getActivePlugins } = select( PLUGINS_STORE_NAME );
+		const { getActivePlugins } = select( pluginsStore );
 
 		return {
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			activePlugins: getActivePlugins(),
 			generalSettings: getSettings( 'general' )?.general,
 			isResolving:

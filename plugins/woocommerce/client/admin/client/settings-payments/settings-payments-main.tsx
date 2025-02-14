@@ -4,11 +4,10 @@
 import { useCallback } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import {
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	PAYMENT_SETTINGS_STORE_NAME,
 	PaymentProvider,
 	type PaymentSettingsSelectors,
-	type PluginSelectors,
 } from '@woocommerce/data';
 import { resolveSelect, useDispatch, useSelect } from '@wordpress/data';
 import { useState, useEffect } from '@wordpress/element';
@@ -48,7 +47,7 @@ export const SettingsPaymentsMain = () => {
 	const [ sortedProviders, setSortedProviders ] = useState<
 		PaymentProvider[] | null
 	>( null );
-	const { installAndActivatePlugins } = useDispatch( PLUGINS_STORE_NAME );
+	const { installAndActivatePlugins } = useDispatch( pluginsStore );
 	const { updateProviderOrdering } = useDispatch(
 		PAYMENT_SETTINGS_STORE_NAME
 	);
@@ -107,9 +106,7 @@ export const SettingsPaymentsMain = () => {
 	}, [] );
 
 	const installedPluginSlugs = useSelect( ( select ) => {
-		return (
-			select( PLUGINS_STORE_NAME ) as PluginSelectors
-		 ).getInstalledPlugins();
+		return select( pluginsStore ).getInstalledPlugins();
 	}, [] );
 
 	// Make UI refresh when plugin is installed.
@@ -231,7 +228,7 @@ export const SettingsPaymentsMain = () => {
 
 			setInstallingPlugin( id );
 			installAndActivatePlugins( [ slug ] )
-				.then( async ( response: Response ) => {
+				.then( async ( response ) => {
 					createNoticesFromResponse( response );
 					invalidateResolutionForStoreSelector(
 						'getPaymentProviders'

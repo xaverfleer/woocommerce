@@ -4,7 +4,7 @@
 import { difference } from 'lodash';
 import { useSelect } from '@wordpress/data';
 import { Spinner } from '@woocommerce/components';
-import { PLUGINS_STORE_NAME, settingsStore } from '@woocommerce/data';
+import { pluginsStore, settingsStore } from '@woocommerce/data';
 
 /**
  * Internal dependencies
@@ -31,15 +31,12 @@ export const WooCommerceTax: React.FC< TaxChildProps > = ( {
 	} = useSelect( ( select ) => {
 		const { getSettings } = select( settingsStore );
 		const { getActivePlugins, hasFinishedResolution } =
-			select( PLUGINS_STORE_NAME );
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			select( pluginsStore );
 		const activePlugins = getActivePlugins();
 
 		return {
 			generalSettings: getSettings( 'general' ).general,
-			isJetpackConnected:
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
-				select( PLUGINS_STORE_NAME ).isJetpackConnected(),
+			isJetpackConnected: select( pluginsStore ).isJetpackConnected(),
 			isResolving:
 				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'isJetpackConnected' ) ||

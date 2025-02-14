@@ -5,7 +5,7 @@ import React from 'react';
 import { Button, CardDivider } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import {
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	PAYMENT_SETTINGS_STORE_NAME,
 	PaymentGatewayLink,
 } from '@woocommerce/data';
@@ -72,7 +72,7 @@ export const EllipsisMenuContent = ( {
 	setResetAccountModalVisible = () => {},
 	isEnabled = false,
 }: EllipsisMenuContentProps ) => {
-	const { deactivatePlugin } = useDispatch( PLUGINS_STORE_NAME );
+	const { deactivatePlugin } = useDispatch( pluginsStore );
 	const [ isDeactivating, setIsDeactivating ] = useState( false );
 	const [ isDisabling, setIsDisabling ] = useState( false );
 	const [ isHidingSuggestion, setIsHidingSuggestion ] = useState( false );

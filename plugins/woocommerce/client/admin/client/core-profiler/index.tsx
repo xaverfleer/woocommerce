@@ -29,7 +29,7 @@ import {
 	onboardingStore,
 	Extension,
 	GeolocationResponse,
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	settingsStore,
 	USER_STORE_NAME,
 	WCUser,
@@ -599,7 +599,7 @@ const preFetchIsJetpackConnected = assign( {
 	isJetpackConnectedRef: ( { spawn } ) =>
 		spawn(
 			fromPromise( async () =>
-				resolveSelect( PLUGINS_STORE_NAME ).isJetpackConnected()
+				resolveSelect( pluginsStore ).isJetpackConnected()
 			)
 		),
 } );
@@ -738,7 +738,7 @@ const skipFlowUpdateBusinessLocation = fromPromise(
 );
 
 export const getJetpackIsConnected = fromPromise( async () => {
-	return resolveSelect( PLUGINS_STORE_NAME ).isJetpackConnected();
+	return resolveSelect( pluginsStore ).isJetpackConnected();
 } );
 
 const reloadPage = () => {

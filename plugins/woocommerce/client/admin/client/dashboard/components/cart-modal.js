@@ -9,7 +9,7 @@ import { find } from 'lodash';
 import { decodeEntities } from '@wordpress/html-entities';
 import { withSelect } from '@wordpress/data';
 import { List } from '@woocommerce/components';
-import { onboardingStore, PLUGINS_STORE_NAME } from '@woocommerce/data';
+import { onboardingStore, pluginsStore } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 
 /**
@@ -166,7 +166,7 @@ class CartModal extends Component {
 
 export default compose(
 	withSelect( ( select ) => {
-		const { getInstalledPlugins } = select( PLUGINS_STORE_NAME );
+		const { getInstalledPlugins } = select( pluginsStore );
 		const { getProductTypes, getProfileItems } = select( onboardingStore );
 		const profileItems = getProfileItems();
 		const installedPlugins = getInstalledPlugins();

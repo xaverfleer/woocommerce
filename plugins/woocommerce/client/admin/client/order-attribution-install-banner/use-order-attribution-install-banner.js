@@ -3,11 +3,7 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useMemo } from '@wordpress/element';
-import {
-	OPTIONS_STORE_NAME,
-	PLUGINS_STORE_NAME,
-	useUser,
-} from '@woocommerce/data';
+import { OPTIONS_STORE_NAME, pluginsStore, useUser } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 import { getPath } from '@woocommerce/navigation';
 import { isWcVersion } from '@woocommerce/settings';
@@ -88,7 +84,7 @@ export const useOrderAttributionInstallBanner = () => {
 
 	const { canUserInstallPlugins, orderAttributionInstallState } = useSelect(
 		( select ) => {
-			const { getPluginInstallState } = select( PLUGINS_STORE_NAME );
+			const { getPluginInstallState } = select( pluginsStore );
 			const installState = getPluginInstallState(
 				'woocommerce-analytics'
 			);

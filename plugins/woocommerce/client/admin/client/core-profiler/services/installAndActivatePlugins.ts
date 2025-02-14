@@ -3,7 +3,7 @@
  */
 import {
 	ExtensionList,
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	PluginNames,
 	onboardingStore,
 } from '@woocommerce/data';
@@ -315,9 +315,7 @@ export const pluginInstallerMachine = createMachine(
 				}: {
 					input: { pluginsInstallationQueue: PluginNames[] };
 				} ) => {
-					return dispatch(
-						PLUGINS_STORE_NAME
-					).installAndActivatePlugins( [
+					return dispatch( pluginsStore ).installAndActivatePlugins( [
 						getPluginSlug( pluginsInstallationQueue[ 0 ] ),
 					] );
 				}

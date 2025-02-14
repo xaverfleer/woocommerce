@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { PLUGINS_STORE_NAME, onboardingStore } from '@woocommerce/data';
+import { pluginsStore, onboardingStore } from '@woocommerce/data';
 import { resolveSelect } from '@wordpress/data';
 import { fromPromise } from 'xstate5';
 import apiFetch from '@wordpress/api-fetch';
@@ -27,7 +27,7 @@ export const fetchCongratsData = fromPromise( async () => {
 			'setup',
 			'extended',
 		] ),
-		resolveSelect( PLUGINS_STORE_NAME ).getActivePlugins(),
+		resolveSelect( pluginsStore ).getActivePlugins(),
 	] );
 	return {
 		surveyCompleted: surveyCompleted as string | null,

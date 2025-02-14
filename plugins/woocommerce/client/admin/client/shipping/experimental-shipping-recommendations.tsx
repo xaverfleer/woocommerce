@@ -4,7 +4,7 @@
 import { useSelect } from '@wordpress/data';
 
 import {
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	settingsStore,
 	onboardingStore,
 } from '@woocommerce/data';
@@ -32,20 +32,17 @@ const ShippingRecommendations: React.FC = () => {
 			getActivePlugins,
 			getInstalledPlugins,
 			isJetpackConnected: _isJetpackConnected,
-		} = select( PLUGINS_STORE_NAME );
+		} = select( pluginsStore );
 
 		const profileItems =
 			select( onboardingStore ).getProfileItems().product_types;
 
 		return {
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			activePlugins: getActivePlugins(),
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			installedPlugins: getInstalledPlugins(),
 			countryCode: getCountryCode(
 				settings.general?.woocommerce_default_country
 			),
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			isJetpackConnected: _isJetpackConnected(),
 			isSellingDigitalProductsOnly:
 				profileItems?.length === 1 && profileItems[ 0 ] === 'downloads',

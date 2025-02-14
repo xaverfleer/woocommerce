@@ -3,7 +3,7 @@
  */
 import {
 	OPTIONS_STORE_NAME,
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	settingsStore,
 } from '@woocommerce/data';
 import { withSelect } from '@wordpress/data';
@@ -21,15 +21,12 @@ const ShippingRecommendationWrapper = compose(
 	withSelect( ( select: SelectFunction ) => {
 		const { getSettings } = select( settingsStore );
 		const { hasFinishedResolution } = select( OPTIONS_STORE_NAME );
-		const { getActivePlugins } = select( PLUGINS_STORE_NAME );
+		const { getActivePlugins } = select( pluginsStore );
 
 		return {
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			activePlugins: getActivePlugins(),
 			generalSettings: getSettings( 'general' )?.general,
-			isJetpackConnected:
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
-				select( PLUGINS_STORE_NAME ).isJetpackConnected(),
+			isJetpackConnected: select( pluginsStore ).isJetpackConnected(),
 			isResolving:
 				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'getOption', [
@@ -40,7 +37,7 @@ const ShippingRecommendationWrapper = compose(
 					'wc_connect_options',
 				] ) ||
 				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
-				! select( PLUGINS_STORE_NAME ).hasFinishedResolution(
+				! select( pluginsStore ).hasFinishedResolution(
 					'isJetpackConnected'
 				),
 		};

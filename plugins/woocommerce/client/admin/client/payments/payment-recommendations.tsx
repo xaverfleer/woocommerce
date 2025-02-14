@@ -12,7 +12,7 @@ import { Text } from '@woocommerce/experimental';
 import {
 	onboardingStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	Plugin,
 	type PaymentSelectors,
 } from '@woocommerce/data';
@@ -41,7 +41,7 @@ const PaymentRecommendations: React.FC = () => {
 	const [ isDismissed, setIsDismissed ] = useState< boolean >( false );
 	const [ isInstalled, setIsInstalled ] = useState< boolean >( false );
 	const { installAndActivatePlugins, dismissRecommendedPlugins } =
-		useDispatch( PLUGINS_STORE_NAME );
+		useDispatch( pluginsStore );
 	const { createNotice } = useDispatch( 'core/notices' );
 
 	const {

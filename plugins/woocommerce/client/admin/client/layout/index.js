@@ -27,7 +27,7 @@ import {
 	navigateTo,
 } from '@woocommerce/navigation';
 import {
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	useUser,
 	withPluginsHydration,
 	withOptionsHydration,
@@ -288,7 +288,7 @@ const Layout = compose(
 		}
 
 		const { getActivePlugins, getInstalledPlugins, isJetpackConnected } =
-			select( PLUGINS_STORE_NAME );
+			select( pluginsStore );
 
 		return {
 			activePlugins: getActivePlugins(),

@@ -15,7 +15,7 @@ import { getHistory, getNewPath } from '@woocommerce/navigation';
 import {
 	settingsStore,
 	onboardingStore,
-	PLUGINS_STORE_NAME,
+	pluginsStore,
 	COUNTRIES_STORE_NAME,
 	shippingMethodsStore,
 } from '@woocommerce/data';
@@ -661,8 +661,7 @@ const ShippingWrapper = compose(
 	withSelect( ( select ) => {
 		const { getSettings, isUpdateSettingsRequesting } =
 			select( settingsStore );
-		const { getActivePlugins, isJetpackConnected } =
-			select( PLUGINS_STORE_NAME );
+		const { getActivePlugins, isJetpackConnected } = select( pluginsStore );
 		const { getCountry } = select( COUNTRIES_STORE_NAME );
 
 		const { general: settings = {} } = getSettings( 'general' );
