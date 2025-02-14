@@ -73,6 +73,7 @@ export const EllipsisMenuWrapper = ( {
 			<WooPaymentsResetAccountModal
 				isOpen={ resetAccountModalVisible }
 				onClose={ () => setResetAccountModalVisible( false ) }
+				isTestMode={ provider.onboarding?.state.test_mode }
 			/>
 		</>
 	);
