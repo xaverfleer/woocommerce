@@ -1809,9 +1809,11 @@ if ( ! function_exists( 'woocommerce_template_single_rating' ) ) {
 	 * Output the product rating.
 	 */
 	function woocommerce_template_single_rating() {
-		if ( post_type_supports( 'product', 'comments' ) ) {
-			wc_get_template( 'single-product/rating.php' );
+		if ( ! post_type_supports( 'product', 'comments' ) || ! is_a( $GLOBALS['product'] ?? null, \WC_Product::class ) ) {
+			return;
 		}
+
+		wc_get_template( 'single-product/rating.php' );
 	}
 }
 if ( ! function_exists( 'woocommerce_template_single_price' ) ) {
@@ -1820,6 +1822,10 @@ if ( ! function_exists( 'woocommerce_template_single_price' ) ) {
 	 * Output the product price.
 	 */
 	function woocommerce_template_single_price() {
+		if ( ! is_a( $GLOBALS['product'] ?? null, \WC_Product::class ) ) {
+			return;
+		}
+
 		wc_get_template( 'single-product/price.php' );
 	}
 }
@@ -1829,6 +1835,10 @@ if ( ! function_exists( 'woocommerce_template_single_excerpt' ) ) {
 	 * Output the product short description (excerpt).
 	 */
 	function woocommerce_template_single_excerpt() {
+		if ( ! isset( $GLOBALS['post']->post_excerpt ) ) {
+			return;
+		}
+
 		wc_get_template( 'single-product/short-description.php' );
 	}
 }
@@ -1838,6 +1848,10 @@ if ( ! function_exists( 'woocommerce_template_single_meta' ) ) {
 	 * Output the product meta.
 	 */
 	function woocommerce_template_single_meta() {
+		if ( ! is_a( $GLOBALS['product'] ?? null, \WC_Product::class ) ) {
+			return;
+		}
+
 		wc_get_template( 'single-product/meta.php' );
 	}
 }
