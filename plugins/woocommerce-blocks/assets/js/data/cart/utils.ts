@@ -10,18 +10,22 @@ import {
 	Cart,
 	CartResponse,
 } from '@woocommerce/types';
+import { CurriedSelectorsOf } from '@wordpress/data/build-types/types';
 
 /**
  * Internal dependencies
  */
-import { store as validationStoreDescriptor } from '../validation';
+import type { ValidationStoreDescriptor } from '../validation';
+import { STORE_KEY as VALIDATION_STORE_KEY } from '../validation/constants';
 
 export const mapCartResponseToCart = ( responseCart: CartResponse ): Cart => {
 	return camelCaseKeys( responseCart ) as unknown as Cart;
 };
 
 export const shippingAddressHasValidationErrors = () => {
-	const validationStore = select( validationStoreDescriptor );
+	const validationStore = select(
+		VALIDATION_STORE_KEY
+	) as CurriedSelectorsOf< ValidationStoreDescriptor >;
 	// Check if the shipping address form has validation errors - if not then we know the full required
 	// address has been pushed to the server.
 	const stateValidationErrors =
@@ -97,7 +101,9 @@ export const validateDirtyProps = ( dirtyProps: {
 	billingAddress: BaseAddressKey[];
 	shippingAddress: BaseAddressKey[];
 } ): boolean => {
-	const validationStore = select( validationStoreDescriptor );
+	const validationStore = select(
+		VALIDATION_STORE_KEY
+	) as CurriedSelectorsOf< ValidationStoreDescriptor >;
 
 	const invalidProps = [
 		...dirtyProps.billingAddress.filter( ( key ) => {

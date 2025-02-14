@@ -18,12 +18,18 @@ import {
 	getPaymentMethods,
 } from '@woocommerce/blocks-registry';
 import { previewCart } from '@woocommerce/resource-previews';
+import {
+	ActionCreatorsOf,
+	ConfigOf,
+	CurriedSelectorsOf,
+} from '@wordpress/data/build-types/types';
 
 /**
  * Internal dependencies
  */
 import { STORE_KEY as CART_STORE_KEY } from '../../cart/constants';
-import { store as paymentStore } from '../index';
+import { STORE_KEY as PAYMENT_STORE_KEY } from '../constants';
+import type { PaymentStoreDescriptor } from '../index';
 import { noticeContexts } from '../../../base/context/event-emit';
 import {
 	EMPTY_CART_ERRORS,
@@ -236,10 +242,14 @@ export const checkPaymentMethodsCanPay = async ( express = false ) => {
 		}
 	}
 
+	const paymentSelectors = select(
+		PAYMENT_STORE_KEY
+	) as CurriedSelectorsOf< PaymentStoreDescriptor >;
+
 	const availablePaymentMethodNames = Object.keys( availablePaymentMethods );
 	const currentlyAvailablePaymentMethods = express
-		? select( paymentStore ).getAvailableExpressPaymentMethods()
-		: select( paymentStore ).getAvailablePaymentMethods();
+		? paymentSelectors.getAvailableExpressPaymentMethods()
+		: paymentSelectors.getAvailablePaymentMethods();
 
 	if (
 		Object.keys( currentlyAvailablePaymentMethods ).length ===
@@ -255,7 +265,9 @@ export const checkPaymentMethodsCanPay = async ( express = false ) => {
 	const {
 		__internalSetAvailablePaymentMethods,
 		__internalSetAvailableExpressPaymentMethods,
-	} = dispatch( paymentStore );
+	} = dispatch( PAYMENT_STORE_KEY ) as ActionCreatorsOf<
+		ConfigOf< PaymentStoreDescriptor >
+	>;
 
 	const setCallback = express
 		? __internalSetAvailableExpressPaymentMethods
