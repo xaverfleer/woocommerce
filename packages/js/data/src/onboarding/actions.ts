@@ -9,7 +9,7 @@ import { controls, dispatch } from '@wordpress/data';
  */
 import TYPES from './action-types';
 import { WC_ADMIN_NAMESPACE } from '../constants';
-import { STORE_NAME } from './constants';
+import { store } from './';
 
 import { DeprecatedTasks } from './deprecated-tasks';
 import { STORE_NAME as OPTIONS_STORE_NAME } from '../options/constants';
@@ -342,7 +342,7 @@ export function* updateProfileItems( items: ProfileItems ) {
 			'getOption',
 			[ 'woocommerce_onboarding_profile' ]
 		);
-		yield dispatch( STORE_NAME ).invalidateResolution( 'getProfileItems' );
+		yield dispatch( store ).invalidateResolution( 'getProfileItems', [] );
 	}
 }
 
@@ -371,14 +371,17 @@ export function* updateCoreProfilerStep( step: CoreProfilerStep ) {
 		yield setIsRequesting( 'updateCoreProfilerStep', false );
 		throw error;
 	} finally {
-		yield dispatch( STORE_NAME ).invalidateResolution(
-			'getProfileProgress'
+		yield dispatch( store ).invalidateResolution(
+			'getProfileProgress',
+			[]
 		);
-		yield dispatch( STORE_NAME ).invalidateResolution(
-			'getCoreProfilerCompletedSteps'
+		yield dispatch( store ).invalidateResolution(
+			'getCoreProfilerCompletedSteps',
+			[]
 		);
-		yield dispatch( STORE_NAME ).invalidateResolution(
-			'getMostRecentCoreProfilerStep'
+		yield dispatch( store ).invalidateResolution(
+			'getMostRecentCoreProfilerStep',
+			[]
 		);
 	}
 }

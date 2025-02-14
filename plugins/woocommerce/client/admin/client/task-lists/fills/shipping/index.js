@@ -14,7 +14,7 @@ import { getAdminLink } from '@woocommerce/settings';
 import { getHistory, getNewPath } from '@woocommerce/navigation';
 import {
 	SETTINGS_STORE_NAME,
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	PLUGINS_STORE_NAME,
 	COUNTRIES_STORE_NAME,
 	SHIPPING_METHODS_STORE_NAME,
@@ -695,7 +695,7 @@ const ShippingWrapper = compose(
 		const {
 			invalidateResolutionForStoreSelector,
 			optimisticallyCompleteTask,
-		} = dispatch( ONBOARDING_STORE_NAME );
+		} = dispatch( onboardingStore );
 
 		return {
 			createNotice,

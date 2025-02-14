@@ -10,7 +10,7 @@ import { Icon, chevronRight, page } from '@wordpress/icons';
 import { partial } from 'lodash';
 import { List, Section } from '@woocommerce/components';
 import {
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	PLUGINS_STORE_NAME,
 	SETTINGS_STORE_NAME,
 } from '@woocommerce/data';
@@ -391,14 +391,14 @@ export default compose(
 		const { getActivePlugins } = select( PLUGINS_STORE_NAME );
 		const { general: generalSettings = {} } = getSettings( 'general' );
 		const activePlugins = getActivePlugins();
-		const paymentGatewaySuggestions = select( ONBOARDING_STORE_NAME )
+		const paymentGatewaySuggestions = select( onboardingStore )
 			.getPaymentGatewaySuggestions()
 			.reduce( ( suggestions, suggestion ) => {
 				const { id } = suggestion;
 				suggestions[ id ] = true;
 				return suggestions;
 			}, {} );
-		const taskLists = select( ONBOARDING_STORE_NAME ).getTaskLists();
+		const taskLists = select( onboardingStore ).getTaskLists();
 
 		const countryCode = getCountryCode(
 			generalSettings.woocommerce_default_country

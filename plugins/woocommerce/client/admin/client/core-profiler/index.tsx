@@ -26,7 +26,7 @@ import {
 	OPTIONS_STORE_NAME,
 	COUNTRIES_STORE_NAME,
 	Country,
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	Extension,
 	GeolocationResponse,
 	PLUGINS_STORE_NAME,
@@ -242,7 +242,7 @@ const handleOnboardingProfileOption = assign( {
 } );
 
 const getCoreProfilerCompletedSteps = fromPromise( async () =>
-	resolveSelect( ONBOARDING_STORE_NAME ).getCoreProfilerCompletedSteps()
+	resolveSelect( onboardingStore ).getCoreProfilerCompletedSteps()
 );
 
 const handleCoreProfilerCompletedSteps = assign( {
@@ -256,6 +256,7 @@ const handleCoreProfilerCompletedSteps = assign( {
 } );
 
 const getCurrentUserEmail = fromPromise( async () => {
+	// @ts-expect-error TODO react-18-upgrade: getCurrentUser type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 	const currentUser: WCUser< 'email' > = await resolveSelect(
 		USER_STORE_NAME
 	).getCurrentUser();
@@ -263,6 +264,7 @@ const getCurrentUserEmail = fromPromise( async () => {
 } );
 
 const getCurrentUser = fromPromise( async () => {
+	// @ts-expect-error TODO react-18-upgrade: getCurrentUser type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 	const currentUser: WCUser< 'capabilities' > = await resolveSelect(
 		USER_STORE_NAME
 	).getCurrentUser();
@@ -335,7 +337,7 @@ const redirectToWooHome = raise( { type: 'REDIRECT_TO_WOO_HOME' } );
 
 const exitToWooHome = fromPromise( async () => {
 	if ( window.wcAdminFeatures[ 'launch-your-store' ] ) {
-		await dispatch( ONBOARDING_STORE_NAME ).coreProfilerCompleted();
+		await dispatch( onboardingStore ).coreProfilerCompleted();
 	}
 	window.location.href = getNewPath( {}, '/', {} );
 } );
@@ -429,7 +431,7 @@ const updateOnboardingProfileOption = fromPromise(
 	async ( { input }: { input: CoreProfilerStateMachineContext } ) => {
 		const { businessChoice, sellingOnlineAnswer, sellingPlatforms } =
 			input.userProfile;
-		return dispatch( ONBOARDING_STORE_NAME ).updateProfileItems( {
+		return dispatch( onboardingStore ).updateProfileItems( {
 			...( businessChoice && { business_choice: businessChoice } ),
 			...( sellingOnlineAnswer && {
 				selling_online_answer: sellingOnlineAnswer,
@@ -563,7 +565,7 @@ const updateBusinessInfo = fromPromise(
 		return Promise.all( [
 			updateStoreCurrency( input.payload.storeLocation ),
 			updateStoreMeasurements( input.payload.storeLocation ),
-			dispatch( ONBOARDING_STORE_NAME ).updateProfileItems( {
+			dispatch( onboardingStore ).updateProfileItems( {
 				is_store_country_set: true,
 				is_agree_marketing: input.payload.isOptInMarketing,
 				...( input.payload.industry && {
@@ -606,7 +608,7 @@ const preFetchJetpackAuthUrl = assign( {
 	jetpackAuthUrlRef: ( { spawn } ) =>
 		spawn(
 			fromPromise( async () =>
-				resolveSelect( ONBOARDING_STORE_NAME ).getJetpackAuthUrl( {
+				resolveSelect( onboardingStore ).getJetpackAuthUrl( {
 					redirectUrl: getAdminLink( 'admin.php?page=wc-admin' ),
 					from: 'woocommerce-core-profiler',
 				} )
@@ -615,15 +617,15 @@ const preFetchJetpackAuthUrl = assign( {
 } );
 
 const preFetchGetPlugins = fromPromise( async () =>
-	resolveSelect( ONBOARDING_STORE_NAME ).getFreeExtensions()
+	resolveSelect( onboardingStore ).getFreeExtensions()
 );
 
 const getPlugins = fromPromise( async () => {
-	dispatch( ONBOARDING_STORE_NAME ).invalidateResolution(
+	dispatch( onboardingStore ).invalidateResolutionForStoreSelector(
 		'getFreeExtensions'
 	);
-	const extensionsBundles: ExtensionList[] = await resolveSelect(
-		ONBOARDING_STORE_NAME
+	const extensionsBundles = await resolveSelect(
+		onboardingStore
 	).getFreeExtensions();
 	return (
 		extensionsBundles.find(
@@ -672,7 +674,7 @@ const updateQueryStep = ( _: unknown, params: { step: CoreProfilerStep } ) => {
 
 const updateProfilerCompletedSteps = fromPromise(
 	async ( { input }: { input: { step: CoreProfilerStep } } ) => {
-		dispatch( ONBOARDING_STORE_NAME ).updateCoreProfilerStep( input.step );
+		dispatch( onboardingStore ).updateCoreProfilerStep( input.step );
 	}
 );
 
@@ -713,7 +715,7 @@ const skipFlowUpdateBusinessLocation = fromPromise(
 	}: {
 		input: CoreProfilerStateMachineContext;
 	} ) => {
-		const skipped = dispatch( ONBOARDING_STORE_NAME ).updateProfileItems( {
+		const skipped = dispatch( onboardingStore ).updateProfileItems( {
 			skipped: true,
 		} );
 		const businessLocation = updateBusinessLocation(
@@ -1519,9 +1521,7 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 					} ),
 					invoke: {
 						src: fromPromise( () => {
-							dispatch(
-								ONBOARDING_STORE_NAME
-							).updateProfileItems( {
+							dispatch( onboardingStore ).updateProfileItems( {
 								is_plugins_page_skipped: true,
 								skipped: false,
 								completed: true,
@@ -1625,7 +1625,7 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 								src: fromPromise(
 									async ( { input: event } ) => {
 										return await dispatch(
-											ONBOARDING_STORE_NAME
+											onboardingStore
 										).updateProfileItems( {
 											business_extensions:
 												event.payload.installationCompletedResult.installedPlugins.map(
@@ -1661,7 +1661,7 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 							invoke: {
 								src: fromPromise( () =>
 									dispatch(
-										ONBOARDING_STORE_NAME
+										onboardingStore
 									).updateProfileItems( {
 										completed: true,
 									} )
@@ -1716,11 +1716,11 @@ export const coreProfilerStateMachineDefinition = createMachine( {
 								window.wcAdminFeatures[ 'launch-your-store' ]
 							) {
 								await dispatch(
-									ONBOARDING_STORE_NAME
+									onboardingStore
 								).coreProfilerCompleted();
 							}
 							return await resolveSelect(
-								ONBOARDING_STORE_NAME
+								onboardingStore
 							).getJetpackAuthUrl( {
 								redirectUrl: getAdminLink(
 									'admin.php?page=wc-admin'

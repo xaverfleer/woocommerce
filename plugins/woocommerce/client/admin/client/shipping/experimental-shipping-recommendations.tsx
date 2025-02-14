@@ -6,7 +6,7 @@ import { useSelect } from '@wordpress/data';
 import {
 	PLUGINS_STORE_NAME,
 	SETTINGS_STORE_NAME,
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 } from '@woocommerce/data';
 
 /**
@@ -35,9 +35,8 @@ const ShippingRecommendations: React.FC = () => {
 			isJetpackConnected: _isJetpackConnected,
 		} = select( PLUGINS_STORE_NAME );
 
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
-		const profileItems = select( ONBOARDING_STORE_NAME ).getProfileItems()
-			.product_types;
+		const profileItems =
+			select( onboardingStore ).getProfileItems().product_types;
 
 		return {
 			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146

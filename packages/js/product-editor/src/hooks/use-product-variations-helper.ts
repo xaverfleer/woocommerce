@@ -26,6 +26,7 @@ async function getDefaultVariationValues(
 	productId: number
 ): Promise< Partial< Omit< ProductVariation, 'id' > > > {
 	try {
+		// @ts-expect-error TODO react-18-upgrade: core.getEntityRecord type is not typed yet
 		const { attributes } = await resolveSelect( 'core' ).getEntityRecord(
 			'postType',
 			'product',
@@ -40,6 +41,7 @@ async function getDefaultVariationValues(
 		const products = await resolveSelect(
 			EXPERIMENTAL_PRODUCT_VARIATIONS_STORE_NAME
 		).getProductVariations( {
+			// @ts-expect-error TODO react-18-upgrade: param type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 			product_id: productId,
 			per_page: 1,
 			has_price: true,
@@ -105,6 +107,7 @@ export function useProductVariationsHelper() {
 	) {
 		setIsGenerating( true );
 
+		// @ts-expect-error TODO react-18-upgrade: core.getEntityRecord type is not typed yet
 		const { status: lastStatus, variations } = await resolveSelect(
 			'core'
 		).getEditedEntityRecord( 'postType', 'product', productId );

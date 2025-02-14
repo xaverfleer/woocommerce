@@ -10,13 +10,11 @@ import { useEffect, useRef, useState } from '@wordpress/element';
 import { EllipsisMenu, List, Pill } from '@woocommerce/components';
 import { Text } from '@woocommerce/experimental';
 import {
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	PLUGINS_STORE_NAME,
 	Plugin,
 	type PaymentSelectors,
-	type OnboardingSelectors,
-	type WPDataSelectors,
 } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 import ExternalIcon from 'gridicons/dist/external';
@@ -80,12 +78,12 @@ const PaymentRecommendations: React.FC = () => {
 						},
 						{}
 					),
-				isResolving: (
-					select( ONBOARDING_STORE_NAME ) as WPDataSelectors
-				 ).isResolving( 'getPaymentGatewaySuggestions' ),
-				paymentGatewaySuggestions: (
-					select( ONBOARDING_STORE_NAME ) as OnboardingSelectors
-				 ).getPaymentGatewaySuggestions(),
+				isResolving: select( onboardingStore ).isResolving(
+					'getPaymentGatewaySuggestions',
+					[]
+				),
+				paymentGatewaySuggestions:
+					select( onboardingStore ).getPaymentGatewaySuggestions(),
 			};
 		},
 		[ isInstalled ]

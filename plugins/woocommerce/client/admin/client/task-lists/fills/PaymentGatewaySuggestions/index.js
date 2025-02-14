@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
 	OPTIONS_STORE_NAME,
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	SETTINGS_STORE_NAME,
 } from '@woocommerce/data';
@@ -54,12 +54,11 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 			installedPaymentGateways: select(
 				PAYMENT_GATEWAYS_STORE_NAME
 			).getPaymentGateways(),
-			isResolving: select( ONBOARDING_STORE_NAME ).isResolving(
+			isResolving: select( onboardingStore ).isResolving(
 				'getPaymentGatewaySuggestions'
 			),
-			paymentGatewaySuggestions: select(
-				ONBOARDING_STORE_NAME
-			).getPaymentGatewaySuggestions( true ),
+			paymentGatewaySuggestions:
+				select( onboardingStore ).getPaymentGatewaySuggestions( true ),
 			countryCode: getCountryCode( settings.woocommerce_default_country ),
 		};
 	}, [] );

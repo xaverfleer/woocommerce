@@ -9,7 +9,7 @@ import { Icon, help as helpIcon, external } from '@wordpress/icons';
 import { STORE_KEY as CES_STORE_KEY } from '@woocommerce/customer-effort-score';
 import { H, Section } from '@woocommerce/components';
 import {
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	OPTIONS_STORE_NAME,
 	useUser,
 } from '@woocommerce/data';
@@ -100,7 +100,7 @@ export const ActivityPanel = ( { isEmbedded, query } ) => {
 		( select, getOption ) => {
 			let trackData = {};
 			if ( query.page === 'wc-admin' && query.task === 'appearance' ) {
-				const { getTaskLists } = select( ONBOARDING_STORE_NAME );
+				const { getTaskLists } = select( onboardingStore );
 				const taskLists = getTaskLists();
 				const tasks = taskLists.reduce(
 					( acc, taskList ) => [ ...acc, ...taskList.tasks ],

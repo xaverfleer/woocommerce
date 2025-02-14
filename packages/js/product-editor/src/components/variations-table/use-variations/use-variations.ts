@@ -65,8 +65,10 @@ export function useVariations( { productId }: UseVariationsProps ) {
 			setIsLoading( true );
 			setGetVariationsError( undefined );
 
+			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 			const data = await getProductVariations( requestParams );
 
+			// @ts-expect-error TODO react-18-upgrade: requestParams type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 			const total = await getProductVariationsTotalCount( requestParams );
 
 			setVariations( data );
@@ -174,6 +176,7 @@ export function useVariations( { productId }: UseVariationsProps ) {
 				page: currentPage++,
 				per_page: 50,
 				order: 'asc',
+				// @ts-expect-error TODO react-18-upgrade: param type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 				orderby: 'menu_order',
 				attributes: filters,
 			} );

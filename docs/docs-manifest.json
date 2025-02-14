@@ -804,7 +804,7 @@
           "menu_title": "Implement merchant onboarding",
           "tags": "how-to",
           "edit_url": "https://github.com/woocommerce/woocommerce/edit/trunk/docs/extension-development/handling-merchant-onboarding.md",
-          "hash": "f53a89603209f12124eff5d21b3abb3edd2f8d07d6819522100c8e0e03c5d5e6",
+          "hash": "cf114c1eb1094cd80eb2254d7b506b3c7cd8cbc7ccdddf6fd05d70f1735b09ef",
           "url": "https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/docs/extension-development/handling-merchant-onboarding.md",
           "id": "89fe15dc232379f546852822230c334d3d940b93"
         },
@@ -1525,7 +1525,7 @@
       "categories": []
     },
     {
-      "content": "\nThe WooCommerce Store API provides public Rest API endpoints for interacting with products, and the Cart and Checkout process. It follows many of the patterns used in the WordPress REST API and  returns JSON formatted data.\n\n In contrast to the WooCommerce REST API, the Store API is specifically designed for frontend applications. It is unauthenticated and does not provide access to sensitive store data or other customer information.\n\nPlease see the [Store API Documentation on GitHub](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/StoreApi/README.md) for more information.\n",
+      "content": "\n**The Store API provides public Rest API endpoints for the development of customer-facing cart, checkout, and product functionality. It follows many of the patterns used in the [WordPress REST API](https://developer.wordpress.org/rest-api/key-concepts/).**\n\n In contrast to the WooCommerce REST API, the Store API is unauthenticated and does not provide access to sensitive store data or other customer information.\n\nPlease see the [Store API Documentation on GitHub](https://github.com/woocommerce/woocommerce/tree/trunk/plugins/woocommerce/src/StoreApi/README.md) for more information.\n",
       "category_slug": "store-api",
       "category_title": "Store API",
       "posts": [],
@@ -1935,5 +1935,5 @@
       "categories": []
     }
   ],
-  "hash": "eb5d0b58ca6536ffb36d324a3d5716ca340ac2f5356b560109243ce01e8bc5f3"
+  "hash": "d822f4e74fb1ff0c5caae9516c63bca4b043a557a35f2a9746e65e2ba9fff5ae"
 }

@@ -79,6 +79,7 @@ async function getProductsBySearchValue(
 		orderby: 'title',
 		order: 'asc',
 		per_page: 5,
+		// @ts-expect-error TODO react-18-upgrade: getProducts type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 		exclude: excludedIds,
 	} );
 }

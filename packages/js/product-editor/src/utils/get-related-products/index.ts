@@ -117,6 +117,7 @@ export async function getSuggestedProductsFor( {
 		);
 	}
 
+	// @ts-expect-error TODO react-18-upgrade: getSuggestedProducts type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 	return await resolveSelect( PRODUCTS_STORE_NAME ).getSuggestedProducts(
 		options
 	);

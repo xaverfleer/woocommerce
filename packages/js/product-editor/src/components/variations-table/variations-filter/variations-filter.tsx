@@ -69,9 +69,11 @@ export function VariationsFilter( {
 				search: searchText,
 			};
 
+			// @ts-expect-error TODO react-18-upgrade: getProductAttributeTerms type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 			const terms = await getProductAttributeTerms( sharedRequestArgs );
 
 			const totalTerms = await getProductAttributeTermsTotalCount(
+				// @ts-expect-error TODO react-18-upgrade: getProductAttributeTermsTotalCount type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 				sharedRequestArgs
 			);
 

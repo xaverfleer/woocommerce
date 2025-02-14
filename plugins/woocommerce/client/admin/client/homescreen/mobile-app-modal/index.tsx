@@ -10,7 +10,7 @@ import { addFilter, removeFilter } from '@wordpress/hooks';
 import { getAdminLink } from '@woocommerce/settings';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
-import { OPTIONS_STORE_NAME, ONBOARDING_STORE_NAME } from '@woocommerce/data';
+import { OPTIONS_STORE_NAME, onboardingStore } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 
 /**
@@ -39,9 +39,8 @@ export const MobileAppModal = () => {
 	const [ pageContent, setPageContent ] = useState< React.ReactNode >();
 	const [ searchParams ] = useSearchParams();
 
-	const { invalidateResolutionForStoreSelector } = useDispatch(
-		ONBOARDING_STORE_NAME
-	);
+	const { invalidateResolutionForStoreSelector } =
+		useDispatch( onboardingStore );
 
 	if ( isNewBranding() ) {
 		import( './style-new.scss' );

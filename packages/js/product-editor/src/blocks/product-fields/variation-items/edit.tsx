@@ -144,6 +144,7 @@ export function Edit( {
 		).getProductVariations( {
 			product_id: productId,
 			order: 'asc',
+			// @ts-expect-error TODO react-18-upgrade: getProductVariations type is not correctly typed and was surfaced by https://github.com/woocommerce/woocommerce/pull/54146
 			orderby: 'menu_order',
 			has_price: false,
 			_fields: [ 'id' ],

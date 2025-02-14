@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { Card, CardHeader, Spinner } from '@wordpress/components';
 import {
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	PLUGINS_STORE_NAME,
 	Extension,
 	ExtensionList,
@@ -105,25 +105,22 @@ const Marketing: React.FC< MarketingProps > = ( { onComplete } ) => {
 	const [ currentPlugin, setCurrentPlugin ] = useState< string | null >(
 		null
 	);
-	const { actionTask } = useDispatch( ONBOARDING_STORE_NAME );
+	const { actionTask } = useDispatch( onboardingStore );
 	const { installAndActivatePlugins } = useDispatch( PLUGINS_STORE_NAME );
 	const { activePlugins, freeExtensions, installedPlugins, isResolving } =
 		useSelect( ( select ) => {
 			const { getActivePlugins, getInstalledPlugins } =
 				select( PLUGINS_STORE_NAME );
-			const { getFreeExtensions, hasFinishedResolution } = select(
-				ONBOARDING_STORE_NAME
-			);
+			const { getFreeExtensions, hasFinishedResolution } =
+				select( onboardingStore );
 
 			return {
 				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				activePlugins: getActivePlugins(),
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				freeExtensions: getFreeExtensions(),
 				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				installedPlugins: getInstalledPlugins(),
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
-				isResolving: ! hasFinishedResolution( 'getFreeExtensions' ),
+				isResolving: ! hasFinishedResolution( 'getFreeExtensions', [] ),
 			};
 		}, [] );
 

@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import {
 	useUserPreferences,
 	NOTES_STORE_NAME,
-	ONBOARDING_STORE_NAME,
+	onboardingStore,
 	OPTIONS_STORE_NAME,
 } from '@woocommerce/data';
 import { __ } from '@wordpress/i18n';
@@ -201,7 +201,7 @@ export default compose(
 		const {
 			getTaskLists,
 			hasFinishedResolution: taskListFinishResolution,
-		} = select( ONBOARDING_STORE_NAME );
+		} = select( onboardingStore );
 
 		const visibleTaskListIds = getAdminSetting( 'visibleTaskListIds', [] );
 		const hasTaskList = visibleTaskListIds.length > 0;

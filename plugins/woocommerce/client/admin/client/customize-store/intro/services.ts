@@ -3,7 +3,7 @@
  */
 import { resolveSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { ONBOARDING_STORE_NAME, OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { onboardingStore, OPTIONS_STORE_NAME } from '@woocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -30,7 +30,7 @@ export const fetchThemeCards = async () => {
 };
 
 export const fetchCustomizeStoreCompleted = async () => {
-	const task = await resolveSelect( ONBOARDING_STORE_NAME ).getTask(
+	const task = await resolveSelect( onboardingStore ).getTask(
 		'customize-store'
 	);
 
@@ -48,9 +48,8 @@ export const fetchIntroData = async () => {
 		OPTIONS_STORE_NAME
 	).getOption( 'woocommerce_admin_customize_store_completed_theme_id' );
 
-	const getTaskPromise = resolveSelect( ONBOARDING_STORE_NAME ).getTask(
-		'customize-store'
-	);
+	const getTaskPromise =
+		resolveSelect( onboardingStore ).getTask( 'customize-store' );
 
 	const themeDataPromise = fetchThemeCards();
 
