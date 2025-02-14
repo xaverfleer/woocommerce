@@ -277,4 +277,35 @@ describe( 'TotalsShipping', () => {
 			screen.queryByText( 'Enter address to check delivery options' )
 		).not.toBeInTheDocument();
 	} );
+
+	it( 'should not show a calculator button label if no shipping methods exist', () => {
+		baseContextHooks.useStoreCart.mockReturnValue( {
+			...baseContextHooks.useStoreCart(),
+			shippingAddress: {
+				...shippingAddress,
+				city: '',
+				country: '',
+				postcode: '',
+			},
+		} );
+
+		render(
+			<SlotFillProvider>
+				<ShippingCalculatorContext.Provider
+					value={ {
+						showCalculator: false,
+						isShippingCalculatorOpen: false,
+						setIsShippingCalculatorOpen: jest.fn(),
+						shippingCalculatorID:
+							'shipping-calculator-form-wrapper',
+					} }
+				>
+					<TotalsShipping />
+				</ShippingCalculatorContext.Provider>
+			</SlotFillProvider>
+		);
+		expect(
+			screen.queryByText( 'Enter address to check delivery options' )
+		).not.toBeInTheDocument();
+	} );
 } );
