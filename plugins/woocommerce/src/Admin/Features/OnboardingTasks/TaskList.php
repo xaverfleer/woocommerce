@@ -428,10 +428,11 @@ class TaskList {
 		$this->possibly_track_completion();
 		$tasks_json = array();
 
-		// We have no use for hidden lists, it's expensive to compute individual tasks completion.
-		// Exception: Secret tasklist is always hidden.
-		if ( $this->is_visible() || 'secret_tasklist' === $this->id ) {
-			foreach ( $this->tasks as $task ) {
+		foreach ( $this->tasks as $task ) {
+			// We have no use for hidden lists, it's expensive to compute individual tasks completion.
+			// Exception: Secret tasklist is always hidden, or a task is always accessible.
+			$list_is_visible = $this->is_visible() || 'secret_tasklist' === $this->id;
+			if ( $list_is_visible || ( method_exists( $task, 'is_always_accessible' ) && $task->is_always_accessible() ) ) {
 				$json = $task->get_json();
 				if ( $json['canView'] ) {
 					$tasks_json[] = $json;
