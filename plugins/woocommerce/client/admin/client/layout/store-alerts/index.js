@@ -19,7 +19,7 @@ import { Icon, chevronLeft, chevronRight, close } from '@wordpress/icons';
 import {
 	notesStore,
 	QUERY_DEFAULTS,
-	OPTIONS_STORE_NAME,
+	optionsStore,
 	useUserPreferences,
 } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
@@ -64,7 +64,7 @@ export const StoreAlerts = () => {
 		defaultHomescreenLayout,
 	} = useSelect( ( select ) => {
 		const { getNotes, hasFinishedResolution } = select( notesStore );
-		const { getOption } = select( OPTIONS_STORE_NAME );
+		const { getOption } = select( optionsStore );
 
 		return {
 			alerts: getUnactionedVisibleAlerts( getNotes( ALERTS_QUERY ) ),

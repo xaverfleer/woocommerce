@@ -5,7 +5,7 @@ import { Notice } from '@wordpress/components';
 import { useState, useEffect } from '@wordpress/element';
 import { recordEvent } from '@woocommerce/tracks';
 import { useDispatch, useSelect } from '@wordpress/data';
-import { OPTIONS_STORE_NAME, pluginsStore } from '@woocommerce/data';
+import { optionsStore, pluginsStore } from '@woocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -23,7 +23,7 @@ interface activatePromoResponse {
 
 const ConnectAccountPage = () => {
 	const incentive = getAdminSetting( 'wcpayWelcomePageIncentive' );
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 	const { installAndActivatePlugins } = useDispatch( pluginsStore );
 	const [ isSubmitted, setSubmitted ] = useState( false );
 	const [ errorMessage, setErrorMessage ] = useState( '' );

@@ -13,7 +13,7 @@ import { dispatch } from '@wordpress/data';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore no types
 // eslint-disable-next-line @woocommerce/dependency-group
-import { STORE_KEY as OPTIONS_STORE_NAME } from '../options/data/constants';
+import { STORE_KEY as optionsStore } from '../options/data/constants';
 
 export const API_NAMESPACE = '/wc-admin-test-helper';
 
@@ -81,7 +81,7 @@ function RemoteLogging() {
 
 	const simulatePhpException = async ( context: 'core' | 'beta-tester' ) => {
 		try {
-			await dispatch( OPTIONS_STORE_NAME ).saveOption(
+			await dispatch( optionsStore ).saveOption(
 				'wc_beta_tester_simulate_woocommerce_php_error',
 				context
 			);
@@ -139,7 +139,7 @@ function RemoteLogging() {
 
 	const simulateException = async ( context: 'core' | 'beta-tester' ) => {
 		try {
-			await dispatch( OPTIONS_STORE_NAME ).saveOption(
+			await dispatch( optionsStore ).saveOption(
 				'wc_beta_tester_simulate_woocommerce_js_error',
 				context
 			);

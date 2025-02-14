@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { Card, CardBody, Spinner } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { getAdminLink } from '@woocommerce/settings';
-import { OPTIONS_STORE_NAME, settingsStore, TaskType } from '@woocommerce/data';
+import { optionsStore, settingsStore, TaskType } from '@woocommerce/data';
 import { queueRecordEvent, recordEvent } from '@woocommerce/tracks';
 import { registerPlugin } from '@wordpress/plugins';
 import {
@@ -45,7 +45,7 @@ export type TaxProps = {
 
 export const Tax: React.FC< TaxProps > = ( { onComplete, query, task } ) => {
 	const [ isPending, setIsPending ] = useState( false );
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 	const { createNotice } = useDispatch( 'core/notices' );
 	const { updateAndPersistSettingsForGroup } = useDispatch( settingsStore );
 	const { generalSettings, isResolving, taxSettings } = useSelect(

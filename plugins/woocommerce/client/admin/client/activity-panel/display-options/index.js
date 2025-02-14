@@ -9,7 +9,7 @@ import {
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
-import { useUserPreferences, OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { useUserPreferences, optionsStore } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 
 /**
@@ -49,7 +49,7 @@ const LAYOUTS = [
 
 export const DisplayOptions = () => {
 	const { defaultHomescreenLayout } = useSelect( ( select ) => {
-		const { getOption } = select( OPTIONS_STORE_NAME );
+		const { getOption } = select( optionsStore );
 
 		return {
 			defaultHomescreenLayout:

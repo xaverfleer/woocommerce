@@ -57,6 +57,7 @@ export { store as ordersStore } from './orders';
 export { store as experimentalShippingZonesStore } from './shipping-zones';
 export { store as experimentalTaxClassesStore } from './tax-classes';
 export { store as pluginsStore } from './plugins';
+export { store as optionsStore } from './options';
 export { store as userStore } from './user';
 
 // Export hooks

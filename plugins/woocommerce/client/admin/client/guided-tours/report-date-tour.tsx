@@ -3,7 +3,7 @@
  */
 import { TourKit, TourKitTypes } from '@woocommerce/components';
 import { __ } from '@wordpress/i18n';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { optionsStore } from '@woocommerce/data';
 import {
 	createElement,
 	createInterpolateElement,
@@ -24,23 +24,18 @@ export const ReportDateTour: React.FC< {
 	headingText: string;
 } > = ( { optionName, headingText } ) => {
 	const [ isDismissed, setIsDismissed ] = useState( false );
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 
 	const { shouldShowTour, isResolving } = useSelect(
 		( select ) => {
-			const { getOption, hasFinishedResolution } =
-				select( OPTIONS_STORE_NAME );
+			const { getOption, hasFinishedResolution } = select( optionsStore );
 
 			return {
 				shouldShowTour:
-					// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 					getOption( optionName ) !== 'yes' &&
-					// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 					getOption( DATE_TYPE_OPTION ) === false,
 				isResolving:
-					// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 					! hasFinishedResolution( 'getOption', [ optionName ] ) ||
-					// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 					! hasFinishedResolution( 'getOption', [
 						DATE_TYPE_OPTION,
 					] ),

@@ -4,7 +4,7 @@
 import { __ } from '@wordpress/i18n';
 import { useDispatch, useSelect } from '@wordpress/data';
 import {
-	OPTIONS_STORE_NAME,
+	optionsStore,
 	onboardingStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	settingsStore,
@@ -50,7 +50,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 		return {
 			getPaymentGateway: select( PAYMENT_GATEWAYS_STORE_NAME )
 				.getPaymentGateway,
-			getOption: select( OPTIONS_STORE_NAME ).getOption,
+			getOption: select( optionsStore ).getOption,
 			installedPaymentGateways: select(
 				PAYMENT_GATEWAYS_STORE_NAME
 			).getPaymentGateways(),

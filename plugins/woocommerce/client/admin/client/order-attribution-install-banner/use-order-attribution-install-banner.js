@@ -3,7 +3,7 @@
  */
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useCallback, useMemo } from '@wordpress/element';
-import { OPTIONS_STORE_NAME, pluginsStore, useUser } from '@woocommerce/data';
+import { optionsStore, pluginsStore, useUser } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 import { getPath } from '@woocommerce/navigation';
 import { isWcVersion } from '@woocommerce/settings';
@@ -69,7 +69,7 @@ const shouldPromoteOrderAttribution = (
  * which determines if the banner should be displayed, checks if it has been dismissed, and provides a function to dismiss it.
  */
 export const useOrderAttributionInstallBanner = () => {
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 	const { currentUserCan } = useUser();
 
 	const dismiss = ( eventContext = 'analytics-overview' ) => {
@@ -99,8 +99,7 @@ export const useOrderAttributionInstallBanner = () => {
 
 	const { loading, isBannerDismissed, remoteVariantAssignment } = useSelect(
 		( select ) => {
-			const { getOption, hasFinishedResolution } =
-				select( OPTIONS_STORE_NAME );
+			const { getOption, hasFinishedResolution } = select( optionsStore );
 
 			return {
 				loading: ! hasFinishedResolution( 'getOption', [

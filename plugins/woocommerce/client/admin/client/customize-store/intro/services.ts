@@ -3,7 +3,7 @@
  */
 import { resolveSelect } from '@wordpress/data';
 import { store as coreStore } from '@wordpress/core-data';
-import { onboardingStore, OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { onboardingStore, optionsStore } from '@woocommerce/data';
 import apiFetch from '@wordpress/api-fetch';
 
 /**
@@ -45,7 +45,7 @@ export const fetchIntroData = async () => {
 	).getDefaultTemplateId( { slug: 'home' } );
 
 	const maybePreviousTemplatePromise = resolveSelect(
-		OPTIONS_STORE_NAME
+		optionsStore
 	).getOption( 'woocommerce_admin_customize_store_completed_theme_id' );
 
 	const getTaskPromise =

@@ -15,7 +15,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { getQuery, navigateTo } from '@woocommerce/navigation';
 import {
-	OPTIONS_STORE_NAME,
+	optionsStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	settingsStore,
 	TaskListType,
@@ -78,7 +78,7 @@ const sidebarQueryParamListener = fromCallback( ( { sendBack } ) => {
 } );
 
 const launchStoreAction = async () => {
-	const results = await dispatch( OPTIONS_STORE_NAME ).updateOptions( {
+	const results = await dispatch( optionsStore ).updateOptions( {
 		woocommerce_coming_soon: 'no',
 	} );
 	if ( results.success ) {

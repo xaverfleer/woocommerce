@@ -16,7 +16,7 @@ import {
 	useUserPreferences,
 	notesStore,
 	onboardingStore,
-	OPTIONS_STORE_NAME,
+	optionsStore,
 } from '@woocommerce/data';
 import { __ } from '@wordpress/i18n';
 
@@ -193,7 +193,7 @@ Layout.propTypes = {
 export default compose(
 	withSelect( ( select ) => {
 		const { isNotesRequesting } = select( notesStore );
-		const { getOption } = select( OPTIONS_STORE_NAME );
+		const { getOption } = select( optionsStore );
 		const defaultHomescreenLayout =
 			getOption( 'woocommerce_default_homepage_layout' ) ||
 			'single_column';

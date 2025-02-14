@@ -4,7 +4,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { Card, CardBody } from '@wordpress/components';
 import {
-	OPTIONS_STORE_NAME,
+	optionsStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
 	pluginsStore,
 } from '@woocommerce/data';
@@ -47,7 +47,7 @@ export const Setup = ( { markConfigured, paymentGateway } ) => {
 
 	const { isOptionUpdating, isPaymentGatewayResolving, needsPluginInstall } =
 		useSelect( ( select ) => {
-			const { isOptionsUpdating } = select( OPTIONS_STORE_NAME );
+			const { isOptionsUpdating } = select( optionsStore );
 			const { isResolving } = select( PAYMENT_GATEWAYS_STORE_NAME );
 			const activePlugins = select( pluginsStore ).getActivePlugins();
 			const pluginsToInstall = plugins.filter(

@@ -10,7 +10,7 @@ import { addFilter, removeFilter } from '@wordpress/hooks';
 import { getAdminLink } from '@woocommerce/settings';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from '@wordpress/data';
-import { OPTIONS_STORE_NAME, onboardingStore } from '@woocommerce/data';
+import { optionsStore, onboardingStore } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 
 /**
@@ -34,7 +34,7 @@ export const MobileAppModal = () => {
 		useState( false );
 
 	const { state, jetpackConnectionData } = useJetpackPluginState();
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 
 	const [ pageContent, setPageContent ] = useState< React.ReactNode >();
 	const [ searchParams ] = useSearchParams();

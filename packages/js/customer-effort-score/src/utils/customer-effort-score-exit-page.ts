@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { optionsStore } from '@woocommerce/data';
 import { dispatch, resolveSelect } from '@wordpress/data';
 import { getQuery } from '@woocommerce/navigation';
 
@@ -42,7 +42,7 @@ export const getExitPageData = () => {
  * @return boolean
  */
 const isTrackingAllowed = async () => {
-	const trackingOption = await resolveSelect( OPTIONS_STORE_NAME ).getOption(
+	const trackingOption = await resolveSelect( optionsStore ).getOption(
 		ALLOW_TRACKING_OPTION_NAME
 	);
 

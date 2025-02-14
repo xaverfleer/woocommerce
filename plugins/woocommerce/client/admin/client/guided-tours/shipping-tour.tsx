@@ -11,7 +11,7 @@ import {
 	useRef,
 	createPortal,
 } from '@wordpress/element';
-import { OPTIONS_STORE_NAME } from '@woocommerce/data';
+import { optionsStore } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 /**
  * Internal dependencies
@@ -44,31 +44,24 @@ const useShowShippingTour = () => {
 		businessCountry,
 		isLoading,
 	} = useSelect( ( select ) => {
-		const { hasFinishedResolution, getOption } =
-			select( OPTIONS_STORE_NAME );
+		const { hasFinishedResolution, getOption } = select( optionsStore );
 
 		return {
 			isLoading:
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'getOption', [
 					CREATED_DEFAULTS_OPTION,
 				] ) &&
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'getOption', [
 					REVIEWED_DEFAULTS_OPTION,
 				] ) &&
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'getOption', [
 					'woocommerce_default_country',
 				] ),
 			hasCreatedDefaultShippingZones:
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				getOption( CREATED_DEFAULTS_OPTION ) === 'yes',
 			hasReviewedDefaultShippingOptions:
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				getOption( REVIEWED_DEFAULTS_OPTION ) === 'yes',
 			businessCountry: getCountryCode(
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				getOption( 'woocommerce_default_country' ) as string
 			),
 		};
@@ -220,7 +213,7 @@ const TourFloaterWrapper = ( { step }: { step: number } ) => {
 export const ShippingTour: React.FC< {
 	showShippingRecommendationsStep: boolean;
 } > = ( { showShippingRecommendationsStep } ) => {
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 	const { show: showTour, isUspsDhlEligible } = useShowShippingTour();
 	const [ step, setStepNumber ] = useState( 0 );
 	const { createNotice } = useDispatch( 'core/notices' );

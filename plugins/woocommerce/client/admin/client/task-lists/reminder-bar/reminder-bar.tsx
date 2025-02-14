@@ -4,7 +4,7 @@
 import { __, sprintf } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
-	OPTIONS_STORE_NAME,
+	optionsStore,
 	TaskType,
 	getVisibleTasks,
 	onboardingStore,
@@ -86,7 +86,7 @@ export const TasksReminderBar: React.FC< ReminderBarProps > = ( {
 	taskListId,
 	updateBodyMargin,
 } ) => {
-	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
+	const { updateOptions } = useDispatch( optionsStore );
 	const {
 		remainingCount,
 		loading,
@@ -103,8 +103,7 @@ export const TasksReminderBar: React.FC< ReminderBarProps > = ( {
 			const {
 				getOption,
 				hasFinishedResolution: optionHasFinishedResolution,
-			} = select( OPTIONS_STORE_NAME );
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+			} = select( optionsStore );
 			const reminderBarHiddenOption = getOption(
 				REMINDER_BAR_HIDDEN_OPTION
 			);
@@ -113,7 +112,6 @@ export const TasksReminderBar: React.FC< ReminderBarProps > = ( {
 				'getTaskList',
 				[ taskListId ]
 			);
-			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			const optionIsResolved = optionHasFinishedResolution( 'getOption', [
 				REMINDER_BAR_HIDDEN_OPTION,
 			] );
