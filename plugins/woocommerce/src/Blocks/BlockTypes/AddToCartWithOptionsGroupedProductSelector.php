@@ -18,6 +18,15 @@ class AddToCartWithOptionsGroupedProductSelector extends AbstractBlock {
 	protected $block_name = 'add-to-cart-with-options-grouped-product-selector';
 
 	/**
+	 * Get the frontend style handle for this block type.
+	 *
+	 * @return null
+	 */
+	protected function get_block_type_style() {
+		return null;
+	}
+
+	/**
 	 * Render the block.
 	 *
 	 * @param array    $attributes Block attributes.
