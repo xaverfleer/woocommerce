@@ -5,11 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { Card, CardBody, Spinner } from '@wordpress/components';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { getAdminLink } from '@woocommerce/settings';
-import {
-	OPTIONS_STORE_NAME,
-	SETTINGS_STORE_NAME,
-	TaskType,
-} from '@woocommerce/data';
+import { OPTIONS_STORE_NAME, settingsStore, TaskType } from '@woocommerce/data';
 import { queueRecordEvent, recordEvent } from '@woocommerce/tracks';
 import { registerPlugin } from '@wordpress/plugins';
 import {
@@ -51,20 +47,16 @@ export const Tax: React.FC< TaxProps > = ( { onComplete, query, task } ) => {
 	const [ isPending, setIsPending ] = useState( false );
 	const { updateOptions } = useDispatch( OPTIONS_STORE_NAME );
 	const { createNotice } = useDispatch( 'core/notices' );
-	const { updateAndPersistSettingsForGroup } =
-		useDispatch( SETTINGS_STORE_NAME );
+	const { updateAndPersistSettingsForGroup } = useDispatch( settingsStore );
 	const { generalSettings, isResolving, taxSettings } = useSelect(
 		( select ) => {
 			const { getSettings, hasFinishedResolution } =
-				select( SETTINGS_STORE_NAME );
+				select( settingsStore );
 			return {
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				generalSettings: getSettings( 'general' ).general,
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				isResolving: ! hasFinishedResolution( 'getSettings', [
 					'general',
 				] ),
-				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				taxSettings: getSettings( 'tax' ).tax || {},
 			};
 		},

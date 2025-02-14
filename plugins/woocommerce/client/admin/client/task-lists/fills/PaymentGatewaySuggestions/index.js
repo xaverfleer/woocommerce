@@ -7,7 +7,7 @@ import {
 	OPTIONS_STORE_NAME,
 	onboardingStore,
 	PAYMENT_GATEWAYS_STORE_NAME,
-	SETTINGS_STORE_NAME,
+	settingsStore,
 } from '@woocommerce/data';
 import { recordEvent } from '@woocommerce/tracks';
 import { useMemo, useCallback, useEffect } from '@wordpress/element';
@@ -45,7 +45,7 @@ export const PaymentGatewaySuggestions = ( { onComplete, query } ) => {
 		isResolving,
 		countryCode,
 	} = useSelect( ( select ) => {
-		const { getSettings } = select( SETTINGS_STORE_NAME );
+		const { getSettings } = select( settingsStore );
 		const { general: settings = {} } = getSettings( 'general' );
 		return {
 			getPaymentGateway: select( PAYMENT_GATEWAYS_STORE_NAME )

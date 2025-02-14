@@ -12,7 +12,7 @@ import { formatValue } from '@woocommerce/number';
 import {
 	getReportTableQuery,
 	REPORTS_STORE_NAME,
-	SETTINGS_STORE_NAME,
+	settingsStore,
 	QUERY_DEFAULTS,
 	OPTIONS_STORE_NAME,
 } from '@woocommerce/data';
@@ -353,7 +353,7 @@ export default compose(
 	withSelect( ( select, props ) => {
 		const { query, filters, advancedFilters } = props;
 		const { woocommerce_default_date_range: defaultDateRange } = select(
-			SETTINGS_STORE_NAME
+			settingsStore
 		).getSetting( 'wc_admin', 'wcAdminSettings' );
 		const { getOption } = select( OPTIONS_STORE_NAME );
 		const dateType = getOption( 'woocommerce_date_type' ) || 'date_paid';

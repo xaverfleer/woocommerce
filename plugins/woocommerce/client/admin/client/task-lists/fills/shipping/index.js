@@ -13,7 +13,7 @@ import { Link, Stepper, Plugins } from '@woocommerce/components';
 import { getAdminLink } from '@woocommerce/settings';
 import { getHistory, getNewPath } from '@woocommerce/navigation';
 import {
-	SETTINGS_STORE_NAME,
+	settingsStore,
 	onboardingStore,
 	PLUGINS_STORE_NAME,
 	COUNTRIES_STORE_NAME,
@@ -660,7 +660,7 @@ export class Shipping extends Component {
 const ShippingWrapper = compose(
 	withSelect( ( select ) => {
 		const { getSettings, isUpdateSettingsRequesting } =
-			select( SETTINGS_STORE_NAME );
+			select( settingsStore );
 		const { getActivePlugins, isJetpackConnected } =
 			select( PLUGINS_STORE_NAME );
 		const { getCountry } = select( COUNTRIES_STORE_NAME );
@@ -690,8 +690,7 @@ const ShippingWrapper = compose(
 	} ),
 	withDispatch( ( dispatch ) => {
 		const { createNotice } = dispatch( 'core/notices' );
-		const { updateAndPersistSettingsForGroup } =
-			dispatch( SETTINGS_STORE_NAME );
+		const { updateAndPersistSettingsForGroup } = dispatch( settingsStore );
 		const {
 			invalidateResolutionForStoreSelector,
 			optimisticallyCompleteTask,

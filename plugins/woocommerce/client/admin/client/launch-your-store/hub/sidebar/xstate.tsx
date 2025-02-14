@@ -17,7 +17,7 @@ import { getQuery, navigateTo } from '@woocommerce/navigation';
 import {
 	OPTIONS_STORE_NAME,
 	PAYMENT_GATEWAYS_STORE_NAME,
-	SETTINGS_STORE_NAME,
+	settingsStore,
 	TaskListType,
 	TaskType,
 	PaymentGateway,
@@ -151,7 +151,7 @@ export const getWooPaymentsStatus = async () => {
 };
 
 export const getSiteCachedStatus = async () => {
-	const settings = await resolveSelect( SETTINGS_STORE_NAME ).getSettings(
+	const settings = await resolveSelect( settingsStore ).getSettings(
 		'wc_admin'
 	);
 

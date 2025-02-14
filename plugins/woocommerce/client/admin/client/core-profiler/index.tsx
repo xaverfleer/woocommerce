@@ -30,7 +30,7 @@ import {
 	Extension,
 	GeolocationResponse,
 	PLUGINS_STORE_NAME,
-	SETTINGS_STORE_NAME,
+	settingsStore,
 	USER_STORE_NAME,
 	WCUser,
 	ProfileItems,
@@ -449,7 +449,7 @@ const updateBusinessLocation = ( countryAndState: string ) => {
 
 const updateStoreCurrency = async ( countryAndState: string ) => {
 	const { general: settings = {} } = await resolveSelect(
-		SETTINGS_STORE_NAME
+		settingsStore
 	).getSettings( 'general' );
 
 	const countryCode = getCountryCode( countryAndState ) as string;
@@ -473,7 +473,7 @@ const updateStoreCurrency = async ( countryAndState: string ) => {
 		return;
 	}
 
-	return dispatch( SETTINGS_STORE_NAME ).updateAndPersistSettingsForGroup(
+	return dispatch( settingsStore ).updateAndPersistSettingsForGroup(
 		'general',
 		{
 			general: {
@@ -517,7 +517,7 @@ const updateStoreMeasurements = async ( countryAndState: string ) => {
 
 	const { weight_unit, dimension_unit } = countryInfo;
 
-	return dispatch( SETTINGS_STORE_NAME ).updateAndPersistSettingsForGroup(
+	return dispatch( settingsStore ).updateAndPersistSettingsForGroup(
 		'products',
 		{
 			products: {

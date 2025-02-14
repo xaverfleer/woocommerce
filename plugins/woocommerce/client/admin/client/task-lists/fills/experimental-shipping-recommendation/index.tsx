@@ -4,14 +4,13 @@
 import {
 	OPTIONS_STORE_NAME,
 	PLUGINS_STORE_NAME,
-	SETTINGS_STORE_NAME,
+	settingsStore,
 } from '@woocommerce/data';
-import type * as controls from '@wordpress/data-controls';
 import { withSelect } from '@wordpress/data';
 import { registerPlugin } from '@wordpress/plugins';
 import { WooOnboardingTask } from '@woocommerce/onboarding';
 import { compose } from '@wordpress/compose';
-
+import type { SelectFunction } from '@wordpress/data/build-types/types';
 /**
  * Internal dependencies
  */
@@ -19,24 +18,24 @@ import { ShippingRecommendation } from './shipping-recommendation';
 import { TaskProps } from './types';
 
 const ShippingRecommendationWrapper = compose(
-	withSelect( ( select: typeof controls.select ) => {
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
-		const { getSettings } = select( SETTINGS_STORE_NAME );
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
+	withSelect( ( select: SelectFunction ) => {
+		const { getSettings } = select( settingsStore );
 		const { hasFinishedResolution } = select( OPTIONS_STORE_NAME );
-		// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 		const { getActivePlugins } = select( PLUGINS_STORE_NAME );
 
 		return {
+			// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 			activePlugins: getActivePlugins(),
 			generalSettings: getSettings( 'general' )?.general,
 			isJetpackConnected:
 				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				select( PLUGINS_STORE_NAME ).isJetpackConnected(),
 			isResolving:
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'getOption', [
 					'woocommerce_setup_jetpack_opted_in',
 				] ) ||
+				// @ts-expect-error Todo: awaiting more global fix, demo: https://github.com/woocommerce/woocommerce/pull/54146
 				! hasFinishedResolution( 'getOption', [
 					'wc_connect_options',
 				] ) ||
