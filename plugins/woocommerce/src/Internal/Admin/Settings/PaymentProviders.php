@@ -809,6 +809,7 @@ class PaymentProviders {
 					ExtensionSuggestions::PAYPAL_FULL_STACK,
 					ExtensionSuggestions::PAYPAL_WALLET,
 					ExtensionSuggestions::MOLLIE,
+					ExtensionSuggestions::MONEI,
 					ExtensionSuggestions::ANTOM,
 					ExtensionSuggestions::MERCADO_PAGO,
 					ExtensionSuggestions::AMAZON_PAY,
